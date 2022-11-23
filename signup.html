@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="signup.css">
+    <title>signup</title>
+</head>
+<body>
+    <div class="bgimg">
+        <div class="centerdiv">
+            <img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-128.png" id="profilepic">
+            <h2>Sign Up</h2>
+            <form>
+                <div>
+                    <input type="email" name="email" id="email" class="inputbox" placeholder="Email">
+                </div>
+                <br>
+                <div>
+                    <input type="password" name="password" id="password" class="inputbox" placeholder="Password">
+                </div>
+                <br>
+                <div>
+                    <input type="password" name="password2" id="password2" class="inputbox" placeholder="Password 확인">
+                </div>
+                <div class="inputbox" style="margin-top:10px; font-size: 0.95em">
+                    <input type="checkbox" onclick="func_agree()" class="custom-control-input" id="agreement">
+                    <label class="custom-control-label" for="agreement">비밀번호 표시</label>
+                </div>
+                <div class="inputbox" style="margin-top: 10px">
+                    <a href="/login.html">로그인하기</a>
+                    <button type="button" onclick="handleSignin()" class="btn btn-primary">가입하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="signup.js"></script>
+</body>
+</html>
