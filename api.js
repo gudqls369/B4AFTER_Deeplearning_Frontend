@@ -1,5 +1,5 @@
 const backend_base_url = 'http://127.0.0.1:8000'
-const frontend_base_url = 'http://127.0.0.1:5501'
+const frontend_base_url = 'http://127.0.0.1:5500'
 
 // 회원가입 API
 async function handleSignup() {
@@ -211,3 +211,25 @@ async function getComments(){
     return response_json
 }
 
+// 댓글 PUT
+async function putComment(post_id, comment_id, content){
+    const commentData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/${comment_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'PUT',
+        body:JSON.stringify(commentData)
+    })
+
+    if(response.status == 200){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}
