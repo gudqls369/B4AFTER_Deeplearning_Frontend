@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: 'Cinzel', serif; */
+}
+
+body {
+    background: #02343F;
+}
+
+.userbutton button{
+    height: 40px;
+    background-color: #F0EDCC;
+    color: #02343F;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px 40px #F0EDCC inset, 0 0 0 0 #F0EDCC;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+
+.postview-box {
+    width: 1000px;
+    height: auto;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    border-radius: 20px;
+    background-color: #F0EDCC;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.image-box {
+    flex: 1.2;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    background-color: red;
+    /* border-radius: 20px; */
+}
+
+.image-footer {
+    width: 100%;
+    height: auto;
+    background-color: pink;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    background-color: orange;
+    /* border-radius: 20px; */
+}
+
+.comments {
+    flex: 0.8;
+    width: 100%;
+    height: auto;
+    background-color: yellow;
+    /* border-radius: 20px; */
+}
