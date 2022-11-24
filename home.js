@@ -51,7 +51,6 @@ function showFile() {
     }
 }
 
-
 async function checkLogin() {
     const name = await getName();
     console.log(name)
@@ -65,7 +64,6 @@ async function checkLogin() {
     }
 }
 
-
 // 유저 정보 가져오기
 // window.onload = () => {
 //     const payload = localStorage.getItem("payload");
@@ -73,5 +71,53 @@ async function checkLogin() {
 //     console.log(payload_parse.username)
 // }
 
+// 게시글 보기
+async function loadPosts(){
+    const posts = await getPosts()
+    const post_list = document.getElementById("post_list")
+    
+
+    console.log(posts)
+
+    posts.forEach(post => {
+        const newPost = document.createElement("div")
+        newPost.classList.add("col")
+        newPost.setAttribute("id", post.id)
+        newPost.setAttribute("onclick", "postDetail(this.id)")
+
+        const newCard = document.createElement("div")
+        newCard.classList.add("card")
+        newCard.classList.add("border-light")
+        newCard.classList.add("bg-secondary")
+        newCard.setAttribute("style", "max-width:18rem;")
+
+        const postImage = document.createElement("img")
+        postImage.classList.add("card-img-top")
+        postImage.setAttribute("src", `${backend_base_url}${post.image.after_image}`)
+
+        const newCardFooter = document.createElement("div")
+        newCardFooter.classList.add("card-footer")
+
+        const postUser = document.createElement("p")
+        postUser.classList.add("text-white")
+        postUser.innerText = post.user
+
+        const postTime = document.createElement("small")
+        postTime.classList.add("text-white-50")
+        postTime.innerText = post.update_at
+
+        newCardFooter.append(postUser)
+        newCardFooter.append(postTime)
+        newCard.append(postImage)
+        newCard.append(newCardFooter)
+        newPost.append(newCard)
+        post_list.append(newPost)
+    })
+}
+
+async function createPost(){
+    window.location.href = `${frontend_base_url}/create_post.html`
+}
 
 checkLogin();
+loadPosts();
