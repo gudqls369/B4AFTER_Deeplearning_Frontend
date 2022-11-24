@@ -1,6 +1,5 @@
-const frontend_base_url = "http://127.0.0.1:5500"
-const backend_base_url = "http://127.0.0.1:8000"
-
+const backend_base_url = 'http://127.0.0.1:8000'
+const frontend_base_url = 'http://127.0.0.1:5501'
 
 // 회원가입 API
 async function handleSignup() {
@@ -42,6 +41,7 @@ async function handleLogin() {
         })
     })
    
+
     // 로컬스토리지에 토큰 저장
     const response_json = await response.json()
     localStorage.setItem("access", response_json.access);
@@ -92,19 +92,83 @@ function logout() {
     window.location.replace(`${frontend_base_url}/home.html`)
 }
 
+// 게시글 GET
+async function getPosts(){
+    const response = await fetch(`${backend_base_url}/post/`, {
+        method:'GET',
+    })
+    response_json = await response.json()
+    return response_json
+}
 
-// before 이미지 백엔드로 보내기 API
-async function beforeImage() {
-    const beforeimage = document.getElementById("beforeimage").value
-    console.log(beforeimage)
+// 이미지 POST
+async function postImage(){
+    const image = document.getElementById("before_image").files[0]
+    const imageData = new FormData()
+    imageData.append("image",image)
 
     const response = await fetch(`${backend_base_url}/post/upload/`, {
-        headers: {
-            'contentType' : 'multipart/form-data'
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "beforeimage": before_image,
-        })
+        method:'POST',
+        body: imageData
     })
+
+    response_json = await response.json()
+    return response_json
+}
+
+// 이미지 GET
+async function getImages(){
+    const response = await fetch(`${backend_base_url}/post/`, {
+        method:'GET',
+    })
+    response_json = await response.json()
+    return response_json
+}
+
+// 게시글 POST
+async function postPost(image, content){
+    const postData = {
+        "image":image,
+        "content":content
+    } 
+    
+    const response = await fetch(`${backend_base_url}/post/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access")
+        },
+        method:'POST',
+        body:JSON.stringify(postData)
+    })
+
+    response_json = await response.json()
+    return response_json
+}
+
+// 상세 페이지로 이동
+function postDetail(post_id){
+    const url = `${frontend_base_url}/post_detail.html?id=${post_id}`
+    location.href=url
+}
+
+// 상세 페이지 GET
+async function getPostDetail(post_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
+        method:'GET'
+    })
+
+    response_json = await response.json()
+    return response_json
+}
+
+// 댓글 GET
+async function getComments(){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
+        method:'GET',
+    })
+
+    response_json = await response.json()
+    return response_json
+}
+
+async function putPost(post_id, content){
 }
