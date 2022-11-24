@@ -20,8 +20,6 @@ async function handleSignup() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 201) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
@@ -59,8 +57,6 @@ async function handleLogin() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 200) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
@@ -69,7 +65,7 @@ async function handleLogin() {
 async function getName() {
     const response = await fetch(`${backend_base_url}/user/mock/`, {
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access")
+            'Authorization': 'Bearer ' + localStorage.getItem("access")
         }
     })
 
@@ -91,8 +87,6 @@ function logout() {
     localStorage.removeItem("payload")
     window.location.replace(`${frontend_base_url}/home.html`)
 }
-
-
 
 // 게시글 GET
 async function getPosts(){
