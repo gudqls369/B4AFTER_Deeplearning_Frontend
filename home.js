@@ -49,3 +49,10 @@ function showFile() {
         dragText.textContent = "Drag & Drop to Upload File";
     }
 }
+
+// 이미지 변환
+async function handleTransfer() {
+    const image = document.getElementById("beforeimage").value
+
+    
+}
