@@ -148,7 +148,7 @@ async function postPost(image, content){
 
 // 상세 페이지로 이동
 function postDetail(post_id){
-    const url = `${frontend_base_url}/post_detail.html?id=${post_id}`
+    const url = `${frontend_base_url}/post_view.html?id=${post_id}`
     location.href=url
 }
 
@@ -162,6 +162,29 @@ async function getPostDetail(post_id){
     return response_json
 }
 
+// 상세 페이지 PUT
+async function putPost(post_id, content){
+    const postData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'PUT',
+        body:JSON.stringify(postData)
+    })
+
+    if(response.status){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}
+
 // 댓글 GET
 async function getComments(){
     const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
@@ -170,8 +193,4 @@ async function getComments(){
 
     response_json = await response.json()
     return response_json
-}
-
-async function putPost(post_id, content){
-
 }

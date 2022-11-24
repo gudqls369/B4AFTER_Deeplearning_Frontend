@@ -44,15 +44,15 @@
         <div class="image-box">
             <div class="image">
                 <p id="username"></p>
-                <span id="post_update" class="material-symbols-outlined" onclick="updatePost()">edit</span>
-                <span id="post_delete" class="material-symbols-outlined" onclick="deletePost()">delete</span>
                 <img id="image">
                 <div class="image-footer">
                     <p id="time"></p>
                 </div>
             </div>
-            <div id="content" class="content">
-
+            <div id="content">
+                <p id="post_content" class="content"></p>
+                <p><span id="update_post" class="material-symbols-outlined" onclick="updateMode()">edit</span>수정</p>
+                <p><span id="delete_post" class="material-symbols-outlined" onclick="deletePost()">delete</span>삭제</p>
             </div>
         </div>
         <div id="comment_list" class="comments"></div>
@@ -61,5 +61,4 @@
     <script src="api.js"></script>
     <script src="post_view.js"></script>
 </body>
-
 </html>
