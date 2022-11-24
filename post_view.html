@@ -55,7 +55,21 @@
 
             </div>
         </div>
-        <div id="comment_list" class="comments"></div>
+        <div id="comment_list" class="comments">
+
+            <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto;">
+                <div class="col-auto" style="width:80%">
+                    <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
+                </div>
+                <div class="col-auto">
+                    <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()"
+                        style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
+                </div>
+                <ul id="my-list">
+                </ul>
+                </div>
+
+        </div>
     </div>
 
     <script src="api.js"></script>
