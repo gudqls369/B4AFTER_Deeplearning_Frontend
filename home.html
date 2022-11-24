@@ -22,21 +22,20 @@
 
     <!-- home.css -->
     <link rel="stylesheet" href="home.css">
-    <title>home</title>
+    <title>몽마르트</title>
 </head>
 
 <body>
-
     <div class="container">
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <!-- <a href="/"> -->
-            <h1 style="font-family:'Jua', sans-serif; color: #fff;" >몽마르트</h1>
+            <h1 style="font-family:'Jua', sans-serif; color: #F0EDCC;" >몽마르트</h1>
             </a>
 
-            <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-dark me-2" style="font-family:'Jua', sans-serif;">로그인</button>
-                <button type="button" class="btn btn-dark" style="font-family:'Jua', sans-serif;">회원가입</button>
+            <div class="userbutton col-md-3 text-end" style="font-family:'Jua', sans-serif;">
+                <button type="button" id="loginout" onclick="logout()" style="margin-right: 10px;">로그인</button>
+                <button type="button" onclick="location.href='/signup.html'">회원가입</button>
             </div>
         </header>
     </div>
@@ -54,7 +53,6 @@
                     <input type="file" hidden>
                 </div>
             </div>
-
             <div class="child2">
                 <div class="select-box">
                     <div>
@@ -70,9 +68,6 @@
                     </div>
                 </div>
             </div>
-
-            
-
             <div class="child3">
                 <div class="deep-image-box">
                 <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)">
@@ -85,8 +80,9 @@
         <header class="py-3 border-bottom">
         </header>
     </div>
-
+    
     <!-- home.js -->
+    <script src="api.js"></script>
     <script src="home.js"></script>
 </body>
 
