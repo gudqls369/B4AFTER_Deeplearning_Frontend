@@ -1,3 +1,4 @@
+// 이미지 업로드
 const dropArea = document.querySelector(".drag-area"),
     dragText = dropArea.querySelector("header"),
     button = dropArea.querySelector("button"),
@@ -49,3 +50,28 @@ function showFile() {
         dragText.textContent = "Drag & Drop to Upload File";
     }
 }
+
+
+async function checkLogin() {
+    const name = await getName();
+    console.log(name)
+    const loginoutButton = document.getElementById("loginout")
+    if(name){
+        loginoutButton.innerText = "로그아웃"
+        loginoutButton.setAttribute("onclick", "logout()")
+    }else{
+        loginoutButton.innerText = "로그인"
+        loginoutButton.setAttribute("onclick", "location.href='/login.html'")
+    }
+}
+
+
+// 유저 정보 가져오기
+// window.onload = () => {
+//     const payload = localStorage.getItem("payload");
+//     const payload_parse =JSON.parse(payload)
+//     console.log(payload_parse.username)
+// }
+
+
+checkLogin();
