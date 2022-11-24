@@ -33,6 +33,7 @@ dropArea.addEventListener("drop", (event) => {
     showFile();
 });
 
+
 function showFile() {
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
@@ -44,13 +45,15 @@ function showFile() {
             dropArea.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
+        beforeImage();
     } else {
         alert("이미지 파일이 아닙니다.");
         dropArea.classList.remove("active");
-        dragText.textContent = "Drag & Drop to Upload File";
+        dragText.textContent = "드래그 하여 이미지 업로드";
     }
 }
 
+// 로그인 여부 확인
 async function checkLogin() {
     const name = await getName();
     console.log(name)

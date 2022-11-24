@@ -69,7 +69,7 @@ async function handleLogin() {
 async function getName() {
     const response = await fetch(`${backend_base_url}/user/mock/`, {
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access")
+            'Authorization': 'Bearer ' + localStorage.getItem("access")
         }
     })
 
@@ -91,8 +91,6 @@ function logout() {
     localStorage.removeItem("payload")
     window.location.replace(`${frontend_base_url}/home.html`)
 }
-
-
 
 // 게시글 GET
 async function getPosts(){
@@ -173,5 +171,4 @@ async function getComments(){
 }
 
 async function putPost(post_id, content){
-
 }
