@@ -131,4 +131,9 @@ async function updateComment(comment_id){
     loadPostDetail(post_id)
 }
 
+// 댓글 삭제
+async function deleteCommenteMode(comment_id){
+    await deleteComment(post_id, comment_id)
+}
+
 loadPostDetail(post_id)

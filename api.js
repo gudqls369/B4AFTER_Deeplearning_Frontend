@@ -233,3 +233,19 @@ async function putComment(post_id, comment_id, content){
         alert(response.status)
     }
 }
+
+// 댓글 DELETE
+async function deleteComment(post_id, comment_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/${comment_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+        },
+        method:'DELETE',
+    })
+
+    if(response.status == 204){
+        window.location.reload(`${frontend_base_url}/post_view.html`)
+    }else{
+        alert(response.status)
+    }
+}
