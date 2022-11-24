@@ -44,12 +44,31 @@ function showFile() {
             dropArea.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
+        beforeImage();
     } else {
         alert("이미지 파일이 아닙니다.");
         dropArea.classList.remove("active");
-        dragText.textContent = "Drag & Drop to Upload File";
+        dragText.textContent = "드래그 하여 이미지 업로드";
     }
 }
+
+
+// 이미지 백엔드로 전송
+// async function beforeImage() {
+//     const beforeimage = document.getElementById("beforeimage")
+//     console.log(beforeimage)
+//     console.log(file)
+
+//     const response = await fetch(`${backend_base_url}/post/upload/`, {
+//         headers: {
+//             'Authorization': 'Bearer ' + localStorage.getItem("access"),
+//         },
+//         method: 'POST',
+//         body: new URLSearchParams({
+//             "before_image": file,
+//         })
+//     })
+// }
 
 
 async function checkLogin() {
@@ -64,7 +83,6 @@ async function checkLogin() {
         loginoutButton.setAttribute("onclick", "location.href='/login.html'")
     }
 }
-
 
 // 유저 정보 가져오기
 // window.onload = () => {

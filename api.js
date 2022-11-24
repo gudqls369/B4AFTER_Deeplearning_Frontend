@@ -69,7 +69,7 @@ async function handleLogin() {
 async function getName() {
     const response = await fetch(`${backend_base_url}/user/mock/`, {
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access")
+            'Authorization': 'Bearer ' + localStorage.getItem("access")
         }
     })
 
@@ -90,4 +90,21 @@ function logout() {
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
     window.location.replace(`${frontend_base_url}/home.html`)
+}
+
+
+// before 이미지 백엔드로 보내기 API
+async function beforeImage() {
+    const beforeimage = document.getElementById("beforeimage").value
+    console.log(beforeimage)
+
+    const response = await fetch(`${backend_base_url}/post/upload/`, {
+        headers: {
+            'contentType' : 'multipart/form-data'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "beforeimage": before_image,
+        })
+    })
 }
