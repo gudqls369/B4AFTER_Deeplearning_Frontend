@@ -1,5 +1,5 @@
 const backend_base_url = 'http://127.0.0.1:8000'
-const frontend_base_url = 'http://127.0.0.1:5501'
+const frontend_base_url = 'http://127.0.0.1:5500'
 
 // 회원가입 API
 async function handleSignup() {
@@ -20,8 +20,6 @@ async function handleSignup() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 201) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
@@ -59,8 +57,6 @@ async function handleLogin() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 200) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
