@@ -11,15 +11,21 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="signup.css">
-    <title>회원가입</title>
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="login.css">
+    <title>로그인</title>
 </head>
+<style>
+    
+</style>
 
 <body>
     <div class="bgimg">
         <div class="centerdiv">
             <img src="logo.png" id="profilepic">
-            <h2 style="color:#02343F; font-family:'Jua', sans-serif;" >회원가입</h2>
+            <h2 style="color:#02343F; font-family:'Jua', sans-serif;">로그인</h2>
             <form>
                 <div>
                     <input type="username" name="username" id="username" class="inputbox" placeholder="Username">
@@ -28,23 +34,19 @@
                 <div>
                     <input type="password" name="password" id="password" class="inputbox" placeholder="Password">
                 </div>
-                <br>
-                <div>
-                    <input type="password" name="password2" id="password2" class="inputbox" placeholder="Password 확인">
-                </div>
                 <div class="inputbox" style="margin-top:10px; font-size: 0.95em">
                     <input type="checkbox" onclick="func_agree()" class="custom-control-input" id="agreement">
                     <label class="custom-control-label" for="agreement" style="font-size: 14px; margin-top: 2px;">비밀번호 표시</label>
                 </div>
-                <div class="inputbox" style="margin-top: 10px">
-                    <button type="button" onclick="handleSignup()">가입하기</button>
+                <div class="inputbox" style="margin-top: 20px;">
+                    <button type="button" id="login" onclick="handleLogin()" >로그인</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="login.js"></script>
     <script src="api.js"></script>
-    <script src="signup.js"></script>
 </body>
 
 </html>

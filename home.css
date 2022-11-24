@@ -1,8 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 body {
-    background: #5256ad;
+    background: #02343F;
 }
+
+
+.userbutton button{
+    height: 40px;
+    background-color: #F0EDCC;
+    color: #02343F;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px 40px #F0EDCC inset, 0 0 0 0 #F0EDCC;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+
+.userbutton button:hover {
+    box-shadow: 0 0 10px 0 #F0EDCC inset, 0 0 10px 4px #F0EDCC;
+}
+
 
 .parent {
     display: flex;
@@ -27,7 +45,7 @@ body {
 }
 
 .drag-area {
-    border: 1px solid #fff;
+    border: 1px solid #F0EDCC;
     height: 400px;
     width: 100%;
     border-radius: 20px;
@@ -36,27 +54,28 @@ body {
     justify-content: center;
     flex-direction: column;
     font-family: 'Jua', sans-serif;
+    overflow: hidden;
 }
 
 .drag-area.active {
-    border: 2px solid #fff;
+    border: 2px solid #F0EDCC;
 }
 
 .drag-area .icon {
     font-size: 100px;
-    color: #fff;
+    color: #F0EDCC;
 }
 
 .drag-area header {
     font-size: 30px;
     font-weight: 500;
-    color: #fff;
+    color: #F0EDCC;
 }
 
 .drag-area span {
     font-size: 25px;
     font-weight: 500;
-    color: #fff;
+    color: #F0EDCC;
     margin: 10px 0 15px 0;
 }
 
@@ -66,10 +85,14 @@ body {
     font-weight: 500;
     border: none;
     outline: none;
-    background: #fff;
-    color: #5256ad;
+    background: #F0EDCC;
+    color: #02343F;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.drag-area button:hover {
+    box-shadow: 0 0 10px 0 #F0EDCC inset, 0 0 10px 4px #F0EDCC;
 }
 
 .drag-area img {
@@ -117,9 +140,13 @@ body {
 }
 
 .button:focus {
-    border: 3px solid rgb(255, 255, 255);
+    border: 3px solid #F0EDCC;
     box-shadow: 0px 0px 0px 1px rgb(58, 58, 110);
     animation: anim-shadow .3s forward;
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 0 #F0EDCC inset, 0 0 10px 4px #F0EDCC;
 }
 
 @keyframes anim-shadow {
@@ -132,7 +159,7 @@ body {
     font-family: 'Jua', sans-serif;
     font-size: 30px;
     font-weight: 500;
-    color: #fff;
+    color: #F0EDCC;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,7 +168,7 @@ body {
 
 
 .deep-image-box {
-    border: 1px solid #fff;
+    border: 1px solid #F0EDCC;
     border-radius: 20px;
     height: 100%;
     width: 100%;
