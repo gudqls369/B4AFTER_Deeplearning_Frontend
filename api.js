@@ -243,3 +243,26 @@ async function deleteComment(post_id, comment_id){
         alert(response.status)
     }
 }
+
+// 댓글 POST
+async function postComment(post_id, content){
+    const commentData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'POST',
+        body:JSON.stringify(commentData)
+    })
+
+    if(response.status == 201){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}

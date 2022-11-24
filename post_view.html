@@ -51,24 +51,20 @@
             </div>
             <div id="new_post_content">
                 <p id="post_content" class="content"></p>
-                <p id="update_post_button" class="material-symbols-outlined" onclick="updatePostMode()"><span>edit</span>수정</p>
-                <p id="delete_post_button" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
+                <p id="update_post" class="material-symbols-outlined" onclick="updatePostMode()"><span>edit</span>수정</p>
+                <p id="delete_post" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
             </div>
         </div>
-        <div id="comment_list" class="comments">
-
-            <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto;">
-                <div class="col-auto" style="width:80%">
-                    <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
-                </div>
-                <div class="col-auto">
-                    <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()"
-                        style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
-                </div>
-                <ul id="my-list">
-                </ul>
-                </div>
-
+        <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto;">
+            <div class="col-auto" style="width:80%">
+                <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
+            </div>
+            <div class="col-auto">
+                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()"
+                style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
+            </div>
+            <div id="comment_list" class="comments">
+            </div>  
         </div>
     </div>
 

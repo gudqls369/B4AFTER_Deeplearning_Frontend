@@ -122,6 +122,7 @@ async function updateComment(comment_id){
     await putComment(post_id, comment_id, inputCommentContent.value)
 
     inputCommentContent.remove()
+    
     const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
     newCommentContent.style.visibility = "visible"
 
@@ -136,19 +137,13 @@ async function deleteCommenteMode(comment_id){
     await deleteComment(post_id, comment_id)
 }
 
-// 댓글
-function addcomment() {
+// 댓글 작성
+async function addcomment() {
+    const createComment = document.getElementById("user_comment")
+    const comment = await postComment(post_id, createComment.value)
 
-    console.log("버튼 실행")
-    const itemInput = document.getElementById("user_comment")
-    console.log(itemInput.value)
-    const content = itemInput.value
-    const newList = document.createElement('p')
-    newList.innerText = content
-
-    const myList = document.getElementById("my-list")
-
-    myList.append(newList)
+    loadPostDetail(post_id)
+    createComment.value = ''
 }
 
 loadPostDetail(post_id)
