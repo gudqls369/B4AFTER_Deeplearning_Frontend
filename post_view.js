@@ -39,4 +39,21 @@ async function loadPostDetail(post_id){
     }
 }
 
-loadPostDetail(post_id)
+
+// loadPostDetail(post_id)
+
+
+// 댓글
+function addcomment() {
+
+    console.log("버튼 실행")
+    const itemInput = document.getElementById("user_comment")
+    console.log(itemInput.value)
+    const content = itemInput.value
+    const newList = document.createElement('p')
+    newList.innerText = content
+
+    const myList = document.getElementById("my-list")
+
+    myList.append(newList)
+}
