@@ -111,12 +111,13 @@ body {
 
 .button {
     width: 49%;
-    height: 170px;
+    height: 145px;
     cursor: pointer;
     border: 2px solid rgba(111, 111, 211, 0);
     border-radius: 20px;
     outline: none;
     transition: .3s;
+    margin-top: 3px;
 }
 
 .button1 {
@@ -133,6 +134,26 @@ body {
 
 .button4 {
     background: url( "star.jpg" ) no-repeat;
+}
+
+.button5 {
+    font-family: 'Jua', sans-serif;
+    width: 49%;
+    height: 50px;
+    margin-top: 5px;
+    background: #F0EDCC;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.button6 {
+    font-family: 'Jua', sans-serif;
+    width: 49%;
+    height: 50px;
+    margin-top: 5px;
+    background: #F0EDCC;
+    border-radius: 10px;
+    font-size: 18px;
 }
 
 .button:focus {
