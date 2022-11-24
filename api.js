@@ -142,7 +142,7 @@ async function postPost(image, content){
 
 // 상세 페이지로 이동
 function postDetail(post_id){
-    const url = `${frontend_base_url}/post_detail.html?id=${post_id}`
+    const url = `${frontend_base_url}/post_view.html?id=${post_id}`
     location.href=url
 }
 
@@ -156,6 +156,45 @@ async function getPostDetail(post_id){
     return response_json
 }
 
+// 상세 페이지 PUT
+async function putPost(post_id, content){
+    const postData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'PUT',
+        body:JSON.stringify(postData)
+    })
+
+    if(response.status){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}
+
+// 상세 페이지 DELETE
+async function deletePost(post_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access")
+        },
+        method:'DELETE',
+    })
+
+    if(response.status == 204){
+        window.location.replace(`${frontend_base_url}/home.html`)
+    }else{
+        alert(response.status)
+    }
+} 
+
 // 댓글 GET
 async function getComments(){
     const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
@@ -166,5 +205,64 @@ async function getComments(){
     return response_json
 }
 
-async function putPost(post_id, content){
+// 댓글 PUT
+async function putComment(post_id, comment_id, content){
+    const commentData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/${comment_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'PUT',
+        body:JSON.stringify(commentData)
+    })
+
+    if(response.status == 200){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
+}
+
+// 댓글 DELETE
+async function deleteComment(post_id, comment_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/${comment_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+        },
+        method:'DELETE',
+    })
+
+    if(response.status == 204){
+        window.location.reload(`${frontend_base_url}/post_view.html`)
+    }else{
+        alert(response.status)
+    }
+}
+
+// 댓글 POST
+async function postComment(post_id, content){
+    const commentData = {
+        "content":content
+    }
+
+    const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'content-type':'application/json'
+        },
+        method:'POST',
+        body:JSON.stringify(commentData)
+    })
+
+    if(response.status == 201){
+        response_json = await response.json()
+        return response_json
+    }else{
+        alert(response.status)
+    }
 }
