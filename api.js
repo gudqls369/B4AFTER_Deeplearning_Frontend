@@ -185,6 +185,22 @@ async function putPost(post_id, content){
     }
 }
 
+// 상세 페이지 DELETE
+async function deletePost(post_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access")
+        },
+        method:'DELETE',
+    })
+
+    if(response.status == 204){
+        window.location.replace(`${frontend_base_url}/home.html`)
+    }else{
+        alert(response.status)
+    }
+} 
+
 // 댓글 GET
 async function getComments(){
     const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
@@ -194,3 +210,4 @@ async function getComments(){
     response_json = await response.json()
     return response_json
 }
+

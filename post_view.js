@@ -61,7 +61,7 @@ function updateMode(){
 // 게시글 수정
 async function updatePost(){
     var inputContent = document.getElementById("input_content")
-    const post = await putPost(post_id, inputContent.value)
+    await putPost(post_id, inputContent.value)
 
     inputContent.remove()
     
@@ -71,6 +71,11 @@ async function updatePost(){
     const updatePostButton = document.getElementById("update_post")
     updatePostButton.setAttribute("onclick", "updateMode()")
     loadPostDetail(post_id)
+}
+
+// 게시글 삭제
+async function deleteMode() {
+    await deletePost(post_id)
 }
 
 loadPostDetail(post_id)
