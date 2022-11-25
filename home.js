@@ -45,7 +45,6 @@ function showFile() {
             dropArea.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
-        beforeImage();
     } else {
         alert("이미지 파일이 아닙니다.");
         dropArea.classList.remove("active");
@@ -58,10 +57,10 @@ async function checkLogin() {
     const name = await getName();
     console.log(name)
     const loginoutButton = document.getElementById("loginout")
-    if(name){
+    if (name) {
         loginoutButton.innerText = "로그아웃"
         loginoutButton.setAttribute("onclick", "logout()")
-    }else{
+    } else {
         loginoutButton.innerText = "로그인"
         loginoutButton.setAttribute("onclick", "location.href='/login.html'")
     }
@@ -74,11 +73,44 @@ async function checkLogin() {
 //     console.log(payload_parse.username)
 // }
 
+
+// 포스팅 모달창 띄우기
+const modal = document.getElementById("post_modal");
+const buttonAddFeed = document.getElementById("img_post_btn");
+buttonAddFeed.addEventListener("click", e => {
+    modal.style.top = window.pageYOffset + 'px';
+    modal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+});
+
+
+// 포스팅 모달창 이미지 띄우기
+async function deepImages(){
+    const getimages = await getImages();
+    console.log(getimages)
+    const deepimg = document.getElementById("deepimage")
+    deepimg.setAttribute("src", `${backend_base_url}${getimages.before_image}`)
+};
+
+// 포스팅 등록
+function postCreate(){
+    const content = document.getElementById("input_content").value
+    postPost(content)
+};
+
+
+// 포스팅 모달창 닫기
+const buttonCloseModal = document.getElementById("close_modal");
+buttonCloseModal.addEventListener("click", e => {
+    modal.style.display = "none";
+    document.body.style.overflowY = "visible";
+});
+
+
 // 게시글 보기
-async function loadPosts(){
+async function loadPosts() {
     const posts = await getPosts()
     const post_list = document.getElementById("post_list")
-    
 
     console.log(posts)
 
@@ -118,9 +150,13 @@ async function loadPosts(){
     })
 }
 
-async function createPost(){
+async function createPost() {
     window.location.href = `${frontend_base_url}/create_post.html`
 }
+
+
+
+
 
 checkLogin();
 loadPosts();

@@ -30,7 +30,7 @@
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <!-- <a href="/"> -->
-            <h1 style="font-family:'Jua', sans-serif; color: #F0EDCC;" >몽마르트</h1>
+            <h1 style="font-family:'Jua', sans-serif; color: #F0EDCC;">몽마르트</h1>
             </a>
 
             <div class="userbutton col-md-3 text-end" style="font-family:'Jua', sans-serif;">
@@ -50,7 +50,7 @@
                     <header>드래그 하여 이미지 업로드</header>
                     <span>또는</span>
                     <button>컴퓨터에서 선택</button>
-                    <input type="file" hidden id="">
+                    <input type="file" id="photo" hidden >
                 </div>
             </div>
             <div class="child2">
@@ -67,28 +67,43 @@
                         <button type="button" class="button button4" id="img_btn"></button>
                     </div>
                     <div>
-                        <button type="button" class="button button5" id="img_upload_btn">업로드 이미지에 화풍입히기</button>
-                        <button type="button" class="button button6" id="img_post_btn">화풍 이미지 공유하기</button>
+                        <button type="button" class="button button5" onclick="beforeImage()" id="img_upload_btn">업로드 이미지에 화풍 입히기</button>
+                        <button type="button" class="button button6" onclick="deepImages()" id="img_post_btn">화풍 이미지 공유하기</button>
+                    </div>
+
+                    <!-- 포스팅 모달 -->
+                    <div id="post_modal" class="modal_overlay">
+                        <div class="modal_window">
+                            <div class="modal_image">
+                                <img id="deepimage" src="star.jpg" alt="deep-image" class="modal_post_image" onclick="window.open(this.src)">
+                            </div>
+                            <div>
+                                <textarea id="input_content" class="modal_text feed_content_textarea form-control col-sm-5" rows="6" placeholder="설명을 입력하세요..."
+                                style="background-color: #F0EDCC; font-size: 20px;"></textarea>
+                            </div>
+                            <div class="modal_button">
+                                <button class="post_register" onclick="postCreate()" style="cursor: pointer; font-size: 16px;">등록하기</button>
+                                <button id="close_modal" class="modal_close" style="cursor: pointer; font-size: 16px;">돌아가기</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="child3">
                 <div class="deep-image-box">
-                <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)">
+                    <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)">
                 </div>
             </div>
-            <span id="create_post" class="material-symbols-outlined" style="color: white;" onclick="createPost()">add_to_photos</span>
         </div>
     </div>
 
     <div class="container">
-        <header class="py-3 border-bottom">
-
-        </header>
-    </div>
-    <div id="post_list" class="card-group row row-cols-1 row-cols-md-3 g-4">
+        <header class="py-3 border-bottom"></header>
     </div>
     
+    <div id="post_list" class="card-group row row-cols-1 row-cols-md-3 g-4"></div>
+    
+
     <!-- home.js -->
     <script src="api.js"></script>
     <script src="home.js"></script>

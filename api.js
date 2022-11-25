@@ -1,5 +1,5 @@
 const backend_base_url = 'http://127.0.0.1:8000'
-const frontend_base_url = 'http://127.0.0.1:5501'
+const frontend_base_url = 'http://127.0.0.1:5500'
 
 // 회원가입 API
 async function handleSignup() {
@@ -20,8 +20,6 @@ async function handleSignup() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 201) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
@@ -40,7 +38,6 @@ async function handleLogin() {
             "password": password
         })
     })
-   
 
     // 로컬스토리지에 토큰 저장
     const response_json = await response.json()
@@ -59,8 +56,6 @@ async function handleLogin() {
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 200) {
         location.replace("home.html")
-    }else{
-        // 팝업
     }
 }
 
@@ -92,68 +87,73 @@ function logout() {
     window.location.replace(`${frontend_base_url}/home.html`)
 }
 
+
 // 게시글 GET
-async function getPosts(){
+async function getPosts() {
     const response = await fetch(`${backend_base_url}/post/`, {
-        method:'GET',
+        method: 'GET',
     })
     response_json = await response.json()
     return response_json
 }
 
 // 이미지 POST
-async function postImage(){
+async function postImage() {
     const image = document.getElementById("before_image").files[0]
     const imageData = new FormData()
-    imageData.append("image",image)
+    imageData.append("image", image)
 
     const response = await fetch(`${backend_base_url}/post/upload/`, {
-        method:'POST',
+        method: 'POST',
         body: imageData
     })
 
-    response_json = await response.json()
+    response_json = await response.json()[arr.length - 1];
     return response_json
 }
 
 // 이미지 GET
-async function getImages(){
-    const response = await fetch(`${backend_base_url}/post/`, {
-        method:'GET',
+async function getImages() {
+    const response = await fetch(`${backend_base_url}/post/upload/`, {
+        method: 'GET',
     })
     response_json = await response.json()
-    return response_json
+    response_json_a = response_json[response_json.length - 1];
+    console.log(response_json_a)
+    return response_json_a
 }
 
-// 게시글 POST
-async function postPost(image, content){
-    const postData = {
-        "image":image,
-        "content":content
-    } 
-    
-    const response = await fetch(`${backend_base_url}/post/`, {
-        headers:{
-            'Authorization':'Bearer '+localStorage.getItem("access")
-        },
-        method:'POST',
-        body:JSON.stringify(postData)
-    })
 
+// 게시글 POST
+async function postPost(content) {
+    const image_id = await getImages();
+    console.log(image_id.id)
+    const response = await fetch(`${backend_base_url}/post/`, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
+            'content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "image": image_id.id,
+            "content": content
+        })
+    })
     response_json = await response.json()
+    console.log(response_json)
     return response_json
 }
 
 // 상세 페이지로 이동
-function postDetail(post_id){
+function postDetail(post_id) {
     const url = `${frontend_base_url}/post_detail.html?id=${post_id}`
-    location.href=url
+    location.href = url
 }
 
 // 상세 페이지 GET
-async function getPostDetail(post_id){
+async function getPostDetail(post_id) {
     const response = await fetch(`${backend_base_url}/post/${post_id}/`, {
-        method:'GET'
+        method: 'GET'
     })
 
     response_json = await response.json()
@@ -161,14 +161,14 @@ async function getPostDetail(post_id){
 }
 
 // 댓글 GET
-async function getComments(){
+async function getComments() {
     const response = await fetch(`${backend_base_url}/post/${post_id}/comment/`, {
-        method:'GET',
+        method: 'GET',
     })
 
     response_json = await response.json()
     return response_json
 }
 
-async function putPost(post_id, content){
+async function putPost(post_id, content) {
 }
