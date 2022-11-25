@@ -121,19 +121,23 @@ body {
 }
 
 .button1 {
-    background: url( "star.jpg" ) no-repeat;
+    background: url( "la_muse.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button2 {
-    background: url( "star.jpg" ) no-repeat;
+    background: url( "starry_night.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button3 {
-    background: url( "star.jpg" ) no-repeat;
+    background: url( "the_scream.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button4 {
-    background: url( "star.jpg" ) no-repeat;
+    background: url( "udnie.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button5 {
