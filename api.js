@@ -3,22 +3,35 @@ const frontend_base_url = 'http://127.0.0.1:5500'
 
 // 회원가입 API
 async function handleSignup() {
-    const username = document.getElementById("username").value
-    const password = document.getElementById("password").value
+    var p1 = document.getElementById('password').value;
+    var p2 = document.getElementById('password2').value;
+      
+      if(p1.length < 6) {
+            alert('입력한 글자가 6글자 이상이어야 합니다.');
+            return false;
+        }
+          
+        if( p1 != p2 ) {
+            alert("비밀번호불일치");
+            return false;
+        } else{
+            alert("비밀번호가 일치합니다");
+            const username = document.getElementById("username").value
+            const password = document.getElementById("password").value
 
-    const response = await fetch(`${backend_base_url}/user/signup/`, {
-        headers: {
-            'content-type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "username": username,
-            "password": password
-        })
-    })
+            const response = await fetch(`${backend_base_url}/user/signup/`, {
+            headers: {
+                'content-type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+                "password": password
+                })
+            })
 
-    response_json = await response.json()
-
+        response_json = await response.json()
+        }   
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 201) {
         location.replace("login.html")
