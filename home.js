@@ -33,6 +33,7 @@ dropArea.addEventListener("drop", (event) => {
     showFile();
 });
 
+
 function showFile() {
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
@@ -44,13 +45,65 @@ function showFile() {
             dropArea.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
+        uploadImage()
     } else {
         alert("이미지 파일이 아닙니다.");
         dropArea.classList.remove("active");
-        dragText.textContent = "Drag & Drop to Upload File";
+        dragText.textContent = "드래그 하여 이미지 업로드";
     }
 }
 
+// 이미지 DB 업로드
+async function uploadImage(){
+    console.log(file)
+    const imageData = new FormData()
+    imageData.append("before_image", file)
+    for (var pair of imageData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+        }
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        method:'POST',
+        headers: {
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+        },
+        body: imageData
+        
+    })
+
+    if (response.status == 201){
+        return response
+    }else{
+        alert(response.status)
+    }
+}
+
+
+
+
+// 이미지 파일 변환
+async function transferImage(){
+    const beforeimg = document.getElementById("beforeimage").value
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        headers: {
+            'Authorization':localStorage.getItem("token")},
+        method: 'PUT',
+        body: JSON.stringify({
+            "email": email,
+            "password": password
+        })
+    })
+    
+    if (response.status == 200){
+        return response
+    }else{
+        alert(response.status)
+    }
+}
+
+
+// 로그인 여부 확인
 async function checkLogin() {
     const name = await getName();
     console.log(name)
@@ -117,26 +170,6 @@ async function loadPosts(){
 
 async function createPost(){
     window.location.href = `${frontend_base_url}/create_post.html`
-}
-
-async function uploadImage(){
-    const beforeimg = document.getElementById("beforeimage").value
-
-    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
-        headers: {
-            'Authorization':localStorage.getItem("token")},
-        method: 'POST',
-        body: JSON.stringify({
-            "email": email,
-            "password": password
-        })
-    })
-    
-    if (response.status == 200){
-        return response
-    }else{
-        alert(response.status)
-    }
 }
 
 checkLogin();
