@@ -125,22 +125,25 @@ async function getImages(){
 }
 
 // 게시글 POST
-async function postPost(image, content){
-    const postData = {
-        "image":image,
-        "content":content
-    } 
-    
+async function postPost(content) {
+    const image_id = await getImages();
+    console.log(image_id.id)
     const response = await fetch(`${backend_base_url}/post/`, {
-        headers:{
-            'Authorization':'Bearer '+localStorage.getItem("access")
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
+            'content-type': 'application/json'
         },
-        method:'POST',
-        body:JSON.stringify(postData)
+        method: 'POST',
+        body: JSON.stringify({
+            "image": image_id.id,
+            "content": content
+        })
     })
-
     response_json = await response.json()
-    return response_json
+
+    if (response.status == 201) {
+        location.replace("home.html")
+    }
 }
 
 // 상세 페이지로 이동

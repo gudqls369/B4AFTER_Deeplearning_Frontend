@@ -59,22 +59,22 @@
                         <header>원하는 화풍 선택</header>
                     </div>
                     <div>
-                        <button type="button" class="button button1" id="img_btn"></button>
-                        <button type="button" class="button button2" id="img_btn"></button>
+                        <button type="button" class="button button1" id="img_btn" value="1" onclick="selectImageStyle(this.value)"></button>
+                        <button type="button" class="button button2" id="img_btn" value="2" onclick="selectImageStyle(this.value)"></button>
                     </div>
                     <div>
-                        <button type="button" class="button button3" id="img_btn"></button>
-                        <button type="button" class="button button4" id="img_btn"></button>
+                        <button type="button" class="button button3" id="img_btn" value="3" onclick="selectImageStyle(this.value)"></button>
+                        <button type="button" class="button button4" id="img_btn" value="4" onclick="selectImageStyle(this.value)"></button>
                     </div>
                     <div>
-                        <button type="button" class="button button5" id="img_upload_btn">이미지 변환</button>
+                        <button type="button" class="button button5" id="img_upload_btn" onclick="uploadImage()">이미지 변환</button>
                         <button type="button" class="button button6" id="img_post_btn">화풍 이미지 공유하기</button>
                     </div>
                 </div>
             </div>
             <div class="child3">
                 <div class="deep-image-box">
-                <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)">
+                <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)" id="after_image">
                 </div>
             </div>
             <span id="create_post" class="material-symbols-outlined" style="color: white;" onclick="createPost()">add_to_photos</span>
@@ -98,4 +98,5 @@
     <script src="api.js"></script>
     <script src="home.js"></script>
 </body>
+
 </html>
