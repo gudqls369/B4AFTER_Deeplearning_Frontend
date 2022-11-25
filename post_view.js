@@ -58,13 +58,17 @@ async function loadPostDetail(post_id){
         const newComment = document.createElement("div")
         newComment.setAttribute("id", `comment_content_${comments[i].id}`)
 
+        // 댓글 작성자
         const newCommentUser = document.createElement("small")
         newCommentUser.innerText = comments[i].user
+        newCommentUser.setAttribute("id", `comment_user_${comments[i].id}`)
 
+        // 댓글 내용
         const newCommentContent = document.createElement("p")
         newCommentContent.innerText = comments[i].content
         newCommentContent.setAttribute("id", `new_comment_content_${comments[i].id}`)
         
+        // 댓글 작성 날짜
         const newCommentTime = document.createElement("small")
         newCommentTime.innerText = comments[i].update_at
         newCommentTime.setAttribute("id", `comment_time_${comments}`)
@@ -131,22 +135,33 @@ async function deletePostMode() {
 }
 
 //댓글 수정 화면
-function updateCommentMode(comment_id){
-    const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
-    newCommentContent.style.visibility = "hidden"
+async function updateCommentMode(comment_id){
+    // 댓글 작성자 확인
+    const commentUser = document.getElementById(`comment_user_${comment_id}`)
+    var payload = localStorage.getItem("payload")
+    var parsed_payload = await JSON.parse(payload)
+    const user = parsed_payload.username
+    console.log(commentUser.innerText, user)
 
-    const inputCommentContent = document.createElement("textarea")
-    inputCommentContent.setAttribute("id", `input_comment_content_${comment_id}`)
-    inputCommentContent.innerText = newCommentContent.innerHTML
-    inputCommentContent.rows = 3
-    inputCommentContent.cols = 20
+    if(user == commentUser.innerText){
+        const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
+        newCommentContent.style.visibility = "hidden"
 
-const commentTime = document.getElementById(`comment_time_${comment_id}`)
-    const updateCommentContent = document.getElementById(`comment_content_${comment_id}`)
-    updateCommentContent.insertBefore(inputCommentContent, commentTime)
-    
-    const updateCommentButton = document.getElementById(`${comment_id}`)
-    updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
+        const inputCommentContent = document.createElement("textarea")
+        inputCommentContent.setAttribute("id", `input_comment_content_${comment_id}`)
+        inputCommentContent.innerText = newCommentContent.innerHTML
+        inputCommentContent.rows = 3
+        inputCommentContent.cols = 20
+
+        const commentTime = document.getElementById(`comment_time_${comment_id}`)
+        const updateCommentContent = document.getElementById(`comment_content_${comment_id}`)
+        updateCommentContent.insertBefore(inputCommentContent, commentTime)
+
+        const updateCommentButton = document.getElementById(`${comment_id}`)
+        updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
+    }else{
+        alert('수정 권한이 없습니다')
+    }
 }
 
 // 댓글 수정
