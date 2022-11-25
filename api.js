@@ -106,12 +106,15 @@ async function getPosts(){
 
 // 이미지 POST
 async function postImage(){
-    const image = document.getElementById("before_image").files[0]
+    const image = document.getElementById("before_image").value
     const imageData = new FormData()
     imageData.append("image",image)
 
     const response = await fetch(`${backend_base_url}/post/upload/`, {
         method:'POST',
+        headers: {
+            'contentType' : 'multipart/form-data',
+            'Authorization':localStorage.getItem("token")},
         body: imageData
     })
 
@@ -179,10 +182,11 @@ async function putPost(post_id, content){
     })
 
     if(response.status){
+        alert('수정 되었습니다')
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('수정 권한이 없습니다')
     }
 }
 
@@ -197,8 +201,9 @@ async function deletePost(post_id){
 
     if(response.status == 204){
         window.location.replace(`${frontend_base_url}/home.html`)
+        alert('삭제 되었습니다')
     }else{
-        alert(response.status)
+        alert('삭제 권한이 없습니다')
     }
 } 
 
@@ -228,10 +233,11 @@ async function putComment(post_id, comment_id, content){
     })
 
     if(response.status == 200){
+        alert('수정되었습니다')
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('수정 권한이 없습니다')
     }
 }
 
@@ -246,8 +252,9 @@ async function deleteComment(post_id, comment_id){
 
     if(response.status == 204){
         window.location.reload(`${frontend_base_url}/post_view.html`)
+        alert('삭제 되었습니다')
     }else{
-        alert(response.status)
+        alert('삭제 권한이 없습니다')
     }
 }
 
@@ -270,6 +277,6 @@ async function postComment(post_id, content){
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('댓글을 입력해주세요')
     }
 }

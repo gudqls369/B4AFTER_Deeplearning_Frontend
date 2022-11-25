@@ -45,13 +45,63 @@ function showFile() {
             dropArea.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
-        beforeImage();
+        uploadImage()
     } else {
         alert("이미지 파일이 아닙니다.");
         dropArea.classList.remove("active");
         dragText.textContent = "드래그 하여 이미지 업로드";
     }
 }
+
+// 이미지 DB 업로드
+async function uploadImage(){
+    console.log(file)
+    const imageData = new FormData()
+    imageData.append("before_image", file)
+    for (var pair of imageData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+        }
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        method:'POST',
+        headers: {
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+        },
+        body: imageData
+        
+    })
+
+    if (response.status == 201){
+        return response
+    }else{
+        alert('로그인 해주세요')
+    }
+}
+
+
+
+
+// 이미지 파일 변환
+async function transferImage(){
+    const beforeimg = document.getElementById("beforeimage").value
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        headers: {
+            'Authorization':localStorage.getItem("token")},
+        method: 'PUT',
+        body: JSON.stringify({
+            "email": email,
+            "password": password
+        })
+    })
+    
+    if (response.status == 200){
+        return response
+    }else{
+        alert(response.status)
+    }
+}
+
 
 // 로그인 여부 확인
 async function checkLogin() {
@@ -92,7 +142,7 @@ async function loadPosts(){
         newCard.classList.add("card")
         newCard.classList.add("border-light")
         newCard.classList.add("bg-secondary")
-        newCard.setAttribute("style", "max-width:18rem;")
+        newCard.setAttribute("style", "max-width:30rem;")
 
         const postImage = document.createElement("img")
         postImage.classList.add("card-img-top")
