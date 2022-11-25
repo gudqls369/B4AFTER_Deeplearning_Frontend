@@ -49,8 +49,8 @@
                     <span class="material-symbols-outlined" style="font-size: 50px;">add_photo_alternate</span>
                     <header>드래그 하여 이미지 업로드</header>
                     <span>또는</span>
-                    <button>컴퓨터에서 선택</button>
-                    <input type="file" hidden id="">
+                    <button type="button" id="upload">컴퓨터에서 선택</button>
+                    <input type="file" hidden>
                 </div>
             </div>
             <div class="child2">
@@ -67,7 +67,7 @@
                         <button type="button" class="button button4" id="img_btn"></button>
                     </div>
                     <div>
-                        <button type="button" class="button button5" id="img_upload_btn">업로드 이미지에 화풍입히기</button>
+                        <button type="button" class="button button5" id="img_upload_btn">이미지 변환</button>
                         <button type="button" class="button button6" id="img_post_btn">화풍 이미지 공유하기</button>
                     </div>
                 </div>
@@ -81,13 +81,25 @@
         </div>
     </div>
 
+
+    <div>
+        
+    </div>
+
     <div class="container">
         <header class="py-3 border-bottom">
 
         </header>
     </div>
-    <div id="post_list" class="card-group row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="container">
+
+        <div id="post_list" class="card-group row row-cols-1 row-cols-md-3 g-4 center-content">
+        </div>
+        
     </div>
+
+    
     
     <!-- home.js -->
     <script src="api.js"></script>
