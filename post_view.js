@@ -109,6 +109,7 @@ async function updatePostMode(){
         
         const updatePostButton = document.getElementById("update_post")
         updatePostButton.setAttribute("onclick", "updatePost()")
+        updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료`
     }
 }
 
@@ -158,6 +159,7 @@ async function updateCommentMode(comment_id){
 
         const updateCommentButton = document.getElementById(`${comment_id}`)
         updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
+        updateCommentButton.innerText = '수정 완료'
     }
 }
 
@@ -173,6 +175,7 @@ async function updateComment(comment_id){
 
     const updateCommentButton = document.getElementById(`${comment_id}`)
     updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
+
 
     loadPostDetail(post_id)
 }
