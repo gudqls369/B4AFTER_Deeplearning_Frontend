@@ -13,25 +13,25 @@ input.addEventListener("change", function () {
     file = this.files[0];
     dropArea.classList.add("active");
     showFile();
-});
+})
 
 
 dropArea.addEventListener("dragover", (event) => {
     event.preventDefault();
     dropArea.classList.add("active");
     dragText.textContent = "Release to Upload File";
-});
+})
 
 dropArea.addEventListener("dragleave", () => {
     dropArea.classList.remove("active");
     dragText.textContent = "Drag & Drop to Upload File";
-});
+})
 
 dropArea.addEventListener("drop", (event) => {
     event.preventDefault();
     file = event.dataTransfer.files[0];
     showFile();
-});
+})
 
 
 function showFile() {
@@ -52,6 +52,57 @@ function showFile() {
     }
 }
 
+// 이미지 DB 업로드
+async function uploadImage() {
+    console.log(file)
+    const imageData = new FormData()
+    imageData.append("before_image", file)
+    for (var pair of imageData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
+        },
+        body: imageData
+
+    })
+
+    if (response.status == 201) {
+        return response
+    } else {
+        alert(response.status)
+    }
+}
+
+
+
+
+// 이미지 파일 변환
+async function transferImage() {
+    const beforeimg = document.getElementById("beforeimage").value
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+        method: 'PUT',
+        body: JSON.stringify({
+            "email": email,
+            "password": password
+        })
+    })
+
+    if (response.status == 200) {
+        return response
+    } else {
+        alert(response.status)
+    }
+}
+
+
 // 로그인 여부 확인
 async function checkLogin() {
     const name = await getName();
@@ -66,13 +117,6 @@ async function checkLogin() {
     }
 }
 
-// 유저 정보 가져오기
-// window.onload = () => {
-//     const payload = localStorage.getItem("payload");
-//     const payload_parse =JSON.parse(payload)
-//     console.log(payload_parse.username)
-// }
-
 
 // 포스팅 모달창 띄우기
 const modal = document.getElementById("post_modal");
@@ -81,19 +125,19 @@ buttonAddFeed.addEventListener("click", e => {
     modal.style.top = window.pageYOffset + 'px';
     modal.style.display = "flex";
     document.body.style.overflowY = "hidden";
-});
+})
 
 
 // 포스팅 모달창 이미지 띄우기
-async function deepImages(){
+async function deepImages() {
     const getimages = await getImages();
     console.log(getimages)
     const deepimg = document.getElementById("deepimage")
-    deepimg.setAttribute("src", `${backend_base_url}${getimages.before_image}`)
+    deepimg.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
 };
 
 // 포스팅 등록
-function postCreate(){
+function postCreate() {
     const content = document.getElementById("input_content").value
     postPost(content)
 };
@@ -124,7 +168,7 @@ async function loadPosts() {
         newCard.classList.add("card")
         newCard.classList.add("border-light")
         newCard.classList.add("bg-secondary")
-        newCard.setAttribute("style", "max-width:18rem;")
+        newCard.setAttribute("style", "max-width:30rem;")
 
         const postImage = document.createElement("img")
         postImage.classList.add("card-img-top")
@@ -153,9 +197,6 @@ async function loadPosts() {
 async function createPost() {
     window.location.href = `${frontend_base_url}/create_post.html`
 }
-
-
-
 
 
 checkLogin();

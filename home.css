@@ -121,19 +121,23 @@ body {
 }
 
 .button1 {
-    background: url("star.jpg") no-repeat;
+    background: url( "la_muse.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button2 {
-    background: url("star.jpg") no-repeat;
+    background: url( "starry_night.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button3 {
-    background: url("star.jpg") no-repeat;
+    background: url( "the_scream.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button4 {
-    background: url("star.jpg") no-repeat;
+    background: url( "udnie.jpg" ) no-repeat;
+    background-size: cover;
 }
 
 .button5 {
@@ -181,7 +185,7 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(1.5px);
     -webkit-backdrop-filter: blur(1.5px);
 }
@@ -272,4 +276,10 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
+
+}
+
+.center-content {
+    margin-top: 50px auto 0px auto;
+    padding: 40px;
 }
