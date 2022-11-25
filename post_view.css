@@ -41,20 +41,20 @@ body {
 .image {
     width: 100%;
     height: auto;
-    background-color: red;
+    /* background-color: red; */
     /* border-radius: 20px; */
 }
 
 .image-footer {
     width: 100%;
     height: auto;
-    background-color: pink;
+    /* background-color: pink; */
 }
 
 .content {
     width: 100%;
     height: auto;
-    background-color: orange;
+    /* background-color: orange; */
     /* border-radius: 20px; */
 }
 
@@ -62,6 +62,6 @@ body {
     flex: 0.8;
     width: 100%;
     height: auto;
-    background-color: yellow;
+    /* background-color: yellow; */
     /* border-radius: 20px; */
 }
