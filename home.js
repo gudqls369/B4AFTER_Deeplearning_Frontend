@@ -74,7 +74,7 @@ async function uploadImage(){
     if (response.status == 201){
         return response
     }else{
-        alert(response.status)
+        alert('로그인 해주세요')
     }
 }
 

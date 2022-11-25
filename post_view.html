@@ -55,13 +55,12 @@
                 <p id="delete_post" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
             </div>
         </div>
-        <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto;">
-            <div class="col-auto" style="width:80%">
+        <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto; display:flex; flex-direction: row;">
+            <div class="col-auto">
                 <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
             </div>
             <div class="col-auto">
-                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()"
-                style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
+                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()">입력</button>
             </div>
             <div id="comment_list" class="comments">
             </div>  
