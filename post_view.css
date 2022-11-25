@@ -67,6 +67,11 @@ body {
 }
 
 /* 좋아요 */
-.addlike_css {
-    background-color: red;
-}
+#like-button:hover
+{cursor: pointer;color:#FECD08;}
+#like-button.not-liked
+{color: #161616;}
+#like-button.not-liked:hover
+{color: #FECD08;}
+#like-button.liked
+{color: #FECD08;}

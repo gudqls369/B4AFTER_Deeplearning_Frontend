@@ -300,3 +300,25 @@ async function postComment(post_id, content){
         alert('댓글을 입력해주세요')
     }
 }
+
+
+// 좋아요
+async function postLike(post_id){
+    const response = await fetch(`${backend_base_url}/post/${post_id}/like/`, {
+        headers:{
+            'Authorization':'Bearer '+localStorage.getItem("access"),
+        },
+        method:'POST'
+    })
+    console.log(response)
+    response_json = await response.json()
+    console.log(response_json)
+
+    if (response.status == 201){
+        console.log(response.status)
+        return response_json
+    }else if(response.status == 200){
+        console.log(response.status)
+        return response_json
+    }
+}

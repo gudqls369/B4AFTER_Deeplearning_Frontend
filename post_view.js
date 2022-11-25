@@ -7,23 +7,23 @@ async function checkLogin() {
     const name = await getName();
 
     const loginoutButton = document.getElementById("loginout")
-    if(name){
+    if (name) {
         loginoutButton.innerText = "로그아웃"
         loginoutButton.setAttribute("onclick", "logout()")
-    }else{
+    } else {
         loginoutButton.innerText = "로그인"
         loginoutButton.setAttribute("onclick", "location.href='/login.html'")
-        
+
         const update_post = document.getElementById("update_post")
         const delete_post = document.getElementById("delete_post")
 
         update_post.style.visibility = "hidden"
-        delete_post.style.visibility = "hidden"   
+        delete_post.style.visibility = "hidden"
     }
 }
 
 // 상세 페이지 게시글 보기
-async function loadPostDetail(post_id){
+async function loadPostDetail(post_id) {
     const post = await getPostDetail(post_id)
 
     const postImage = document.getElementById("image")
@@ -41,7 +41,7 @@ async function loadPostDetail(post_id){
     const comment_list = document.getElementById("comment_list")
     comment_list.innerHTML = ''
 
-    for(let i = 0; i < comments.length; i++){
+    for (let i = 0; i < comments.length; i++) {
         const newComment = document.createElement("div")
         newComment.setAttribute("id", `comment_content_${comments[i].id}`)
 
@@ -54,7 +54,7 @@ async function loadPostDetail(post_id){
         const newCommentContent = document.createElement("p")
         newCommentContent.innerText = comments[i].content
         newCommentContent.setAttribute("id", `new_comment_content_${comments[i].id}`)
-        
+
         // 댓글 작성 날짜
         const newCommentTime = document.createElement("small")
         newCommentTime.innerText = comments[i].update_at
@@ -73,7 +73,7 @@ async function loadPostDetail(post_id){
         commentDeleteButton.setAttribute("type", "button")
         commentDeleteButton.setAttribute("id", `${comments[i].id}`)
         commentDeleteButton.setAttribute("onclick", "deleteCommenteMode(this.id)")
-       
+
         newComment.appendChild(newCommentUser)
         newComment.appendChild(newCommentContent)
         newComment.appendChild(newCommentTime)
@@ -84,7 +84,7 @@ async function loadPostDetail(post_id){
 }
 
 //게시글 수정 화면
-async function updatePostMode(){
+async function updatePostMode() {
     // 게시글 작성자 확인
     const postUser = document.getElementById("post_user")
     var payload = localStorage.getItem("payload")
@@ -92,9 +92,9 @@ async function updatePostMode(){
     console.log(parsed_payload)
     console.log(postUser.innerText)
 
-    if(parsed_payload == null || parsed_payload.username != postUser.innerText){
+    if (parsed_payload == null || parsed_payload.username != postUser.innerText) {
         alert('수정 권한이 없습니다')
-    }else{
+    } else {
         const postContent = document.getElementById("post_content")
         postContent.style.visibility = "hidden"
 
@@ -106,7 +106,7 @@ async function updatePostMode(){
 
         const newPostContent = document.getElementById("new_post_content")
         newPostContent.insertBefore(inputPostContent, postContent)
-        
+
         const updatePostButton = document.getElementById("update_post")
         updatePostButton.setAttribute("onclick", "updatePost()")
         updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료`
@@ -114,12 +114,12 @@ async function updatePostMode(){
 }
 
 // 게시글 수정
-async function updatePost(){
+async function updatePost() {
     var inputPostContent = document.getElementById("input_post_content")
     await putPost(post_id, inputPostContent.value)
 
     inputPostContent.remove()
-    
+
     const postContent = document.getElementById("post_content")
     postContent.style.visibility = "visible"
 
@@ -134,16 +134,16 @@ async function deletePostMode() {
 }
 
 //댓글 수정 화면
-async function updateCommentMode(comment_id){
+async function updateCommentMode(comment_id) {
     // 댓글 작성자 확인
     const commentUser = document.getElementById(`comment_user_${comment_id}`)
     var payload = localStorage.getItem("payload")
     var parsed_payload = await JSON.parse(payload)
 
-    if(parsed_payload == null || parsed_payload.username != commentUser.innerText){
+    if (parsed_payload == null || parsed_payload.username != commentUser.innerText) {
         alert('수정 권한이 없습니다')
- 
-    }else{
+
+    } else {
         const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
         newCommentContent.style.visibility = "hidden"
 
@@ -164,12 +164,12 @@ async function updateCommentMode(comment_id){
 }
 
 // 댓글 수정
-async function updateComment(comment_id){
+async function updateComment(comment_id) {
     var inputCommentContent = document.getElementById(`input_comment_content_${comment_id}`)
     await putComment(post_id, comment_id, inputCommentContent.value)
 
     inputCommentContent.remove()
-    
+
     const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
     newCommentContent.style.visibility = "visible"
 
@@ -181,7 +181,7 @@ async function updateComment(comment_id){
 }
 
 // 댓글 삭제
-async function deleteCommenteMode(comment_id){
+async function deleteCommenteMode(comment_id) {
     await deleteComment(post_id, comment_id)
 }
 
@@ -194,22 +194,35 @@ async function addcomment() {
     createComment.value = ''
 }
 
+// 좋아요
+let liked = false
+
+var like_button = document.getElementById("like-button");
+if (like_button) {
+    like_button.addEventListener("click", doLikeButton);
+}
+
+function doLikeButton(e) {
+    toggleButton(e.target);
+}
+
+async function toggleButton(button) {
+    button.classList.remove("liked-shaked");
+    button.classList.toggle("liked");
+    button.classList.toggle("not-liked");
+    button.classList.toggle("fa-heart-o");
+    button.classList.toggle("fa-heart");
+
+    if(!liked){
+        let response = await postLike(post_id)
+        liked = true
+    }else{
+        let response = await postLike(post_id)
+        liked = false
+    }
+}
+
+
+
 checkLogin()
 loadPostDetail(post_id)
-
-// 좋아요
-
-
-function addLike() {
-    
-    const addLike = document.getElementById("add-like");
-
-    console.log("addLike 함수 실행 중");
-    // array 형식으로 바꾸는 방법
-    addLike.classList.toggle("addlike_css");
-  
-    // Array.from(listItem).forEach((element) => {
-    //   console.log(element);
-    //   element.classList.toggle("mystyle2");
-    // });
-  }
