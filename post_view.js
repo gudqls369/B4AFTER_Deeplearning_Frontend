@@ -196,3 +196,20 @@ async function addcomment() {
 
 checkLogin()
 loadPostDetail(post_id)
+
+// 좋아요
+
+
+function addLike() {
+    
+    const addLike = document.getElementById("add-like");
+
+    console.log("addLike 함수 실행 중");
+    // array 형식으로 바꾸는 방법
+    addLike.classList.toggle("addlike_css");
+  
+    // Array.from(listItem).forEach((element) => {
+    //   console.log(element);
+    //   element.classList.toggle("mystyle2");
+    // });
+  }
