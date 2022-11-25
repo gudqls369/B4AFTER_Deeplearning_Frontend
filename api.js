@@ -6,39 +6,39 @@ async function handleSignup() {
     var p1 = document.getElementById('password').value;
     var p2 = document.getElementById('password2').value;
       
-      if(p1.length < 6) {
-            alert('입력한 글자가 6글자 이상이어야 합니다.');
-            return false;
-        }
-          
-        if( p1 != p2 ) {
-            alert("비밀번호불일치");
-            return false;
-        } else{
-            alert("비밀번호가 일치합니다");
-            const username = document.getElementById("username").value
-            const password = document.getElementById("password").value
+    if(p1.length < 6) {
+        alert('입력한 글자가 6글자 이상이어야 합니다.');
+        return false;
+    }
+        
+    if( p1 != p2 ) {
+        alert("비밀번호불일치");
+        return false;
+    } else{
+        const username = document.getElementById("username").value
+        const password = document.getElementById("password").value
 
-            const response = await fetch(`${backend_base_url}/user/signup/`, {
-            headers: {
-                'content-type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({
-                "username": username,
-                "password": password
-                })
-            })
+        const response = await fetch(`${backend_base_url}/user/signup/`, {
+          headers: {
+              'content-type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify({
+              "username": username,
+              "password": password
+              })
+        })
 
         response_json = await response.json()
-        }   
-    // 로그인이 성공하면 홈으로 이동
-    if (response.status == 201) {
-        location.replace("login.html")
-    }else {
-        alert('이미 존재하는 아이디입니다')
-        console.log(response_json)                
-    }
+        
+        // 로그인이 성공하면 홈으로 이동
+        if (response.status == 201) {
+            location.replace("login.html")
+        }else {
+            alert('이미 존재하는 아이디입니다')
+            console.log(response_json)                
+        }
+    } 
 }
 
 // 로그인 API
@@ -75,10 +75,9 @@ async function handleLogin() {
         // 로그인이 성공하면 홈으로 이동
         location.replace("home.html")
     }else{
-        alert('존재하지 않는 아이디입니다')
+        alert('아이디 혹은 비밀번호를 잘못입력했습니다')
     }
 }
-
 
 // 로그인 시 정보 가져오기
 async function getName() {
@@ -91,7 +90,6 @@ async function getName() {
     if (response.status == 200) {
         const payload = localStorage.getItem("payload");
         const payload_parse = JSON.parse(payload)
-        console.log(payload_parse.username)
         return payload_parse.username
     } else {
         return null
@@ -118,7 +116,6 @@ async function getPosts() {
 }
 
 // 이미지 POST
-
 async function postImage(){
     const image = document.getElementById("before_image").value
     const imageData = new FormData()
@@ -143,15 +140,12 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
-    console.log(response_json_a)
     return response_json_a
 }
-
 
 // 게시글 POST
 async function postPost(content) {
     const image_id = await getImages();
-    console.log(image_id.id)
     const response = await fetch(`${backend_base_url}/post/`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
@@ -164,8 +158,13 @@ async function postPost(content) {
         })
     })
     response_json = await response.json()
-    console.log(response_json)
-    return response_json
+    
+    if(response.status == 201){
+        alert('글 작성을 완료했습니다')
+        window.location.reload(`${frontend_base_url}/home.html`)
+    }else{
+        alert('로그인 해주세요')
+    }
 }
 
 // 상세 페이지로 이동
@@ -295,6 +294,6 @@ async function postComment(post_id, content){
         response_json = await response.json()
         return response_json
     }else{
-        alert('댓글을 입력해주세요')
+        alert('로그인 해주세요')
     }
 }

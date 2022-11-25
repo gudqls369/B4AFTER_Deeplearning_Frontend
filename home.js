@@ -67,7 +67,6 @@ async function uploadImage() {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
         },
         body: imageData
-
     })
 
     if (response.status == 201) {
@@ -76,9 +75,6 @@ async function uploadImage() {
         alert('로그인 해주세요')
     }
 }
-
-
-
 
 // 이미지 파일 변환
 async function transferImage() {
@@ -102,21 +98,25 @@ async function transferImage() {
     }
 }
 
-
-// 로그인 여부 확인
+// 로그인 확인
 async function checkLogin() {
     const name = await getName();
-    console.log(name)
+
     const loginoutButton = document.getElementById("loginout")
-    if (name) {
+    if(name){
         loginoutButton.innerText = "로그아웃"
         loginoutButton.setAttribute("onclick", "logout()")
-    } else {
+    }else{
         loginoutButton.innerText = "로그인"
         loginoutButton.setAttribute("onclick", "location.href='/login.html'")
+        
+        const update_post = document.getElementById("update_post")
+        const delete_post = document.getElementById("delete_post")
+
+        update_post.style.visibility = "hidden"
+        delete_post.style.visibility = "hidden"   
     }
 }
-
 
 // 포스팅 모달창 띄우기
 const modal = document.getElementById("post_modal");
@@ -131,7 +131,6 @@ buttonAddFeed.addEventListener("click", e => {
 // 포스팅 모달창 이미지 띄우기
 async function deepImages() {
     const getimages = await getImages();
-    console.log(getimages)
     const deepimg = document.getElementById("deepimage")
     deepimg.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
 };
@@ -155,8 +154,6 @@ buttonCloseModal.addEventListener("click", e => {
 async function loadPosts() {
     const posts = await getPosts()
     const post_list = document.getElementById("post_list")
-
-    console.log(posts)
 
     posts.forEach(post => {
         const newPost = document.createElement("div")
@@ -197,7 +194,6 @@ async function loadPosts() {
 async function createPost() {
     window.location.href = `${frontend_base_url}/create_post.html`
 }
-
 
 checkLogin();
 loadPosts();
