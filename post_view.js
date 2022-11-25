@@ -5,7 +5,7 @@ const post_id = urlParams.get('id')
 // 로그인 확인
 async function checkLogin() {
     const name = await getName();
-    console.log(name)
+
     const loginoutButton = document.getElementById("loginout")
     if(name){
         loginoutButton.innerText = "로그아웃"
@@ -27,7 +27,7 @@ async function loadPostDetail(post_id){
     const post = await getPostDetail(post_id)
 
     const postImage = document.getElementById("image")
-    const postUser = document.getElementById("username")
+    const postUser = document.getElementById("post_user")
     const postContent = document.getElementById("post_content")
     const postTime = document.getElementById("time")
 
@@ -35,19 +35,6 @@ async function loadPostDetail(post_id){
     postUser.innerText = post.user
     postContent.innerText = post.content
     postTime.innerText = post.update_at
-    
-   // 게시글 작성자 확인
-    var payload = localStorage.getItem("payload")
-    var parsed_payload = await JSON.parse(payload)
-    const user = parsed_payload.username
-
-    if(user != post.user){
-        const update_post = document.getElementById("update_post")
-        const delete_post = document.getElementById("delete_post")
-
-        update_post.style.visibility = "hidden"
-        delete_post.style.visibility = "hidden"
-    }
 
     // 상세 페이지 댓글 보기
     const comments = await getComments()
@@ -97,21 +84,32 @@ async function loadPostDetail(post_id){
 }
 
 //게시글 수정 화면
-function updatePostMode(){
-    const postContent = document.getElementById("post_content")
-    postContent.style.visibility = "hidden"
+async function updatePostMode(){
+    // 게시글 작성자 확인
+    const postUser = document.getElementById("post_user")
+    var payload = localStorage.getItem("payload")
+    var parsed_payload = await JSON.parse(payload)
+    console.log(parsed_payload)
+    console.log(postUser.innerText)
 
-    const inputPostContent = document.createElement("textarea")
-    inputPostContent.setAttribute("id", "input_post_content")
-    inputPostContent.innerText = postContent.innerHTML
-    inputPostContent.rows = 1
-    inputPostContent.cols = 100
+    if(parsed_payload == null || parsed_payload.username != postUser.innerText){
+        alert('수정 권한이 없습니다')
+    }else{
+        const postContent = document.getElementById("post_content")
+        postContent.style.visibility = "hidden"
 
-    const newPostContent = document.getElementById("new_post_content")
-    newPostContent.insertBefore(inputPostContent, postContent)
-    
-    const updatePostButton = document.getElementById("update_post")
-    updatePostButton.setAttribute("onclick", "updatePost()")
+        const inputPostContent = document.createElement("textarea")
+        inputPostContent.setAttribute("id", "input_post_content")
+        inputPostContent.innerText = postContent.innerHTML
+        inputPostContent.rows = 1
+        inputPostContent.cols = 100
+
+        const newPostContent = document.getElementById("new_post_content")
+        newPostContent.insertBefore(inputPostContent, postContent)
+        
+        const updatePostButton = document.getElementById("update_post")
+        updatePostButton.setAttribute("onclick", "updatePost()")
+    }
 }
 
 // 게시글 수정
@@ -140,10 +138,11 @@ async function updateCommentMode(comment_id){
     const commentUser = document.getElementById(`comment_user_${comment_id}`)
     var payload = localStorage.getItem("payload")
     var parsed_payload = await JSON.parse(payload)
-    const user = parsed_payload.username
-    console.log(commentUser.innerText, user)
 
-    if(user == commentUser.innerText){
+    if(parsed_payload == null || parsed_payload.username != commentUser.innerText){
+        alert('수정 권한이 없습니다')
+ 
+    }else{
         const newCommentContent = document.getElementById(`new_comment_content_${comment_id}`)
         newCommentContent.style.visibility = "hidden"
 
@@ -159,8 +158,6 @@ async function updateCommentMode(comment_id){
 
         const updateCommentButton = document.getElementById(`${comment_id}`)
         updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
-    }else{
-        alert('수정 권한이 없습니다')
     }
 }
 
