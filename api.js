@@ -151,8 +151,10 @@ async function postPost(content) {
         })
     })
     response_json = await response.json()
-    console.log(response_json)
-    return response_json
+
+    if (response.status == 201) {
+        location.replace("home.html")
+    }
 }
 
 // 상세 페이지로 이동

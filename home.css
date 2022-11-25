@@ -179,6 +179,7 @@ body {
 .modal_overlay {
     width: 100%;
     height: 100%;
+    position: relative; z-index:999;
     position: absolute;
     left: 0;
     top: 0;
@@ -191,6 +192,7 @@ body {
 }
 
 .modal_window {
+    
     background: #02343F;
     backdrop-filter: blur(13.5px);
     -webkit-backdrop-filter: blur(13.5px);
@@ -208,6 +210,11 @@ body {
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.modal_image img {
+    width: 100%;
+    height: 100%;
 }
 
 .modal_post_image {
