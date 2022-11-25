@@ -99,12 +99,15 @@ async function getPosts(){
 
 // 이미지 POST
 async function postImage(){
-    const image = document.getElementById("before_image").files[0]
+    const image = document.getElementById("before_image").value
     const imageData = new FormData()
     imageData.append("image",image)
 
     const response = await fetch(`${backend_base_url}/post/upload/`, {
         method:'POST',
+        headers: {
+            'contentType' : 'multipart/form-data',
+            'Authorization':localStorage.getItem("token")},
         body: imageData
     })
 
