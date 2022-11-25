@@ -92,7 +92,7 @@ async function loadPosts(){
         newCard.classList.add("card")
         newCard.classList.add("border-light")
         newCard.classList.add("bg-secondary")
-        newCard.setAttribute("style", "max-width:18rem;")
+        newCard.setAttribute("style", "max-width:30rem;")
 
         const postImage = document.createElement("img")
         postImage.classList.add("card-img-top")
