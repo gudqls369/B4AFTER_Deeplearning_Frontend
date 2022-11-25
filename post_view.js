@@ -62,14 +62,15 @@ async function loadPostDetail(post_id){
 
         // 댓글 수정 버튼    
         const commentUpdateButton = document.createElement("button")
-        commentUpdateButton.innerText = '수정'
+        commentUpdateButton.innerText = '\u00a0수정\u00a0'
         commentUpdateButton.setAttribute("type", "button")
+        commentUpdateButton.setAttribute("style", "margin:10px")
         commentUpdateButton.setAttribute("id", `${comments[i].id}`)
         commentUpdateButton.setAttribute("onclick", "updateCommentMode(this.id)")
 
         //댓글 삭제 버튼
         const commentDeleteButton = document.createElement("button")
-        commentDeleteButton.innerText = '삭제'
+        commentDeleteButton.innerText = '\u00a0삭제\u00a0'
         commentDeleteButton.setAttribute("type", "button")
         commentDeleteButton.setAttribute("id", `${comments[i].id}`)
         commentDeleteButton.setAttribute("onclick", "deleteCommenteMode(this.id)")
@@ -109,7 +110,7 @@ async function updatePostMode(){
         
         const updatePostButton = document.getElementById("update_post")
         updatePostButton.setAttribute("onclick", "updatePost()")
-        updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료`
+        updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료 `
     }
 }
 
@@ -159,7 +160,7 @@ async function updateCommentMode(comment_id){
 
         const updateCommentButton = document.getElementById(`${comment_id}`)
         updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
-        updateCommentButton.innerText = '수정 완료'
+        updateCommentButton.innerText = '\u00a0수정 완료\u00a0'
     }
 }
 
