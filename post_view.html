@@ -22,6 +22,11 @@
 
     <!-- home.css -->
     <link rel="stylesheet" href="post_view.css">
+
+    <!-- 좋아요 Icons -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <title>몽마르트</title>
 </head>
 
@@ -51,8 +56,8 @@
             </div>
             <div id="new_post_content">
                 <p id="post_content" class="content"></p>
-                <p id="update_post"  onclick="updatePostMode()"><span class="material-symbols-outlined">edit</span>수정</p>
-                <p id="delete_post"  onclick="deletePostMode()"><span class="material-symbols-outlined">delete</span>삭제</p>
+                <p id="update_post" class="material-symbols-outlined" onclick="updatePostMode()"><span>edit</span>수정</p>
+                <p id="delete_post" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
             </div>
         </div>
         <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto; display:flex; flex-direction: row;">
@@ -60,14 +65,18 @@
                 <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
             </div>
             <div class="col-auto">
-                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()">입력</button>
+                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()"
+                    style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
+            </div>
+            <div class="col-auto">
+                <button id="add-like" class="addlike" onclick="addLike()">좋아요</button>
+                <span class="material-icons-outlined" onclick="addLike()">favorite_border</span>
             </div>
             <div id="comment_list" class="comments">
-            </div>  
+            </div>
         </div>
-    </div>
-
     <script src="api.js"></script>
     <script src="post_view.js"></script>
 </body>
+
 </html>
