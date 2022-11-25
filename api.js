@@ -17,9 +17,14 @@ async function handleSignup() {
         })
     })
 
+    response_json = await response.json()
+
     // 로그인이 성공하면 홈으로 이동
     if (response.status == 201) {
-        location.replace("home.html")
+        location.replace("login.html")
+    }else {
+        alert('이미 존재하는 아이디입니다')
+        console.log(response_json)                
     }
 }
 
@@ -39,23 +44,25 @@ async function handleLogin() {
         })
     })
 
-    // 로컬스토리지에 토큰 저장
-    const response_json = await response.json()
-    localStorage.setItem("access", response_json.access);
-    localStorage.setItem("refresh", response_json.refresh);
-
-    // 로컬스토리지에 토큰 정보 저장
-    const base64Url = response_json.access.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    localStorage.setItem("payload", jsonPayload);
-
-    // 로그인이 성공하면 홈으로 이동
     if (response.status == 200) {
+        // 로컬스토리지에 토큰 저장
+        const response_json = await response.json()
+        localStorage.setItem("access", response_json.access);
+        localStorage.setItem("refresh", response_json.refresh);
+
+        // 로컬스토리지에 토큰 정보 저장
+        const base64Url = response_json.access.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        localStorage.setItem("payload", jsonPayload);
+
+        // 로그인이 성공하면 홈으로 이동
         location.replace("home.html")
+    }else{
+        alert('존재하지 않는 아이디입니다')
     }
 }
 
@@ -78,13 +85,13 @@ async function getName() {
     }
 }
 
-
 // 로그아웃
 function logout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
     window.location.replace(`${frontend_base_url}/home.html`)
+    alert('로그아웃 하셨습니다')
 }
 
 
@@ -180,10 +187,11 @@ async function putPost(post_id, content){
     })
 
     if(response.status){
+        alert('수정 되었습니다')
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('수정 권한이 없습니다')
     }
 }
 
@@ -198,8 +206,9 @@ async function deletePost(post_id){
 
     if(response.status == 204){
         window.location.replace(`${frontend_base_url}/home.html`)
+        alert('삭제 되었습니다')
     }else{
-        alert(response.status)
+        alert('삭제 권한이 없습니다')
     }
 } 
 
@@ -229,10 +238,11 @@ async function putComment(post_id, comment_id, content){
     })
 
     if(response.status == 200){
+        alert('수정되었습니다')
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('수정 권한이 없습니다')
     }
 }
 
@@ -247,8 +257,9 @@ async function deleteComment(post_id, comment_id){
 
     if(response.status == 204){
         window.location.reload(`${frontend_base_url}/post_view.html`)
+        alert('삭제 되었습니다')
     }else{
-        alert(response.status)
+        alert('삭제 권한이 없습니다')
     }
 }
 
@@ -271,6 +282,6 @@ async function postComment(post_id, content){
         response_json = await response.json()
         return response_json
     }else{
-        alert(response.status)
+        alert('댓글을 입력해주세요')
     }
 }

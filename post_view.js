@@ -2,6 +2,26 @@
 const urlParams = new URLSearchParams(window.location.search)
 const post_id = urlParams.get('id')
 
+// 로그인 확인
+async function checkLogin() {
+    const name = await getName();
+    console.log(name)
+    const loginoutButton = document.getElementById("loginout")
+    if(name){
+        loginoutButton.innerText = "로그아웃"
+        loginoutButton.setAttribute("onclick", "logout()")
+    }else{
+        loginoutButton.innerText = "로그인"
+        loginoutButton.setAttribute("onclick", "location.href='/login.html'")
+        
+        const update_post = document.getElementById("update_post")
+        const delete_post = document.getElementById("delete_post")
+
+        update_post.style.visibility = "hidden"
+        delete_post.style.visibility = "hidden"   
+    }
+}
+
 // 상세 페이지 게시글 보기
 async function loadPostDetail(post_id){
     const post = await getPostDetail(post_id)
@@ -15,6 +35,19 @@ async function loadPostDetail(post_id){
     postUser.innerText = post.user
     postContent.innerText = post.content
     postTime.innerText = post.update_at
+    
+   // 게시글 작성자 확인
+    var payload = localStorage.getItem("payload")
+    var parsed_payload = await JSON.parse(payload)
+    const user = parsed_payload.username
+
+    if(user != post.user){
+        const update_post = document.getElementById("update_post")
+        const delete_post = document.getElementById("delete_post")
+
+        update_post.style.visibility = "hidden"
+        delete_post.style.visibility = "hidden"
+    }
 
     // 상세 페이지 댓글 보기
     const comments = await getComments()
@@ -146,4 +179,5 @@ async function addcomment() {
     createComment.value = ''
 }
 
+checkLogin()
 loadPostDetail(post_id)
