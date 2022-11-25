@@ -30,22 +30,21 @@
     <title>몽마르트</title>
 </head>
 
-<body style="font-family:'Jua', sans-serif">
+<body>
     <div class="container" >
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <!-- <a href="/"> -->
-            <h1 style="font-family:'Jua', sans-serif; color: #F0EDCC;">몽마르트</h1>
+            <h1 style="color: #F0EDCC;">몽마르트</h1>
             </a>
 
-            <div class="userbutton col-md-3 text-end" style="font-family:'Jua', sans-serif;">
+            <div class="userbutton col-md-3 text-end">
                 <button type="button" id="loginout" onclick="logout()" style="margin-right: 10px;">로그인</button>
                 <button type="button" onclick="location.href='/signup.html'">회원가입</button>
             </div>
         </header>
     </div>
 
-    <div class="postview-box" style="padding: 20px; width: 80%; border-style:solid;">
+    <div class="postview-box">
         <div class="image-box">
             <div class="image">
                 <p id="post_user"></p>
@@ -56,11 +55,11 @@
             </div>
             <div id="new_post_content">
                 <p id="post_content" class="content"></p>
-                <p id="update_post" class="material-symbols-outlined" onclick="updatePostMode()" style="margin-right:20px;"><span>edit</span>수정</p>
-                <p id="delete_post" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
+                <p id="update_post" onclick="updatePostMode()" style="margin-right:20px; width:100px;"><span class="material-symbols-outlined">edit</span>수정</p>
+                <p id="delete_post" onclick="deletePostMode()" style="margin-right: 20px; width:100px;"><span class="material-symbols-outlined">delete</span>삭제</p>
             </div>
         </div>
-        <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto; display:flex; flex-direction: row;">
+        <div class="row g-3" style="margin:auto; display:flex; flex-direction: row;">
             <div class="col-auto">
                 <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
             </div>
@@ -78,5 +77,4 @@
     <script src="api.js"></script>
     <script src="post_view.js"></script>
 </body>
-
 </html>

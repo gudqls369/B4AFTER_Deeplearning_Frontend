@@ -5,8 +5,8 @@ const post_id = urlParams.get('id')
 // 로그인 확인
 async function checkLogin() {
     const name = await getName();
-
     const loginoutButton = document.getElementById("loginout")
+
     if(name){
         loginoutButton.innerText = "로그아웃"
         loginoutButton.setAttribute("onclick", "logout()")
@@ -24,7 +24,12 @@ async function checkLogin() {
 
 // 상세 페이지 게시글 보기
 async function loadPostDetail(post_id){
+    const updatePostCancelButton = document.getElementById("update_post_cancel_button")
     const post = await getPostDetail(post_id)
+    
+    if(updatePostCancelButton){
+        updatePostCancelButton.remove()
+    }
 
     const postImage = document.getElementById("image")
     const postUser = document.getElementById("post_user")
@@ -35,12 +40,12 @@ async function loadPostDetail(post_id){
     postUser.innerText = post.user
     postContent.innerText = post.content
     postTime.innerText = post.update_at
-
+    
     // 상세 페이지 댓글 보기
     const comments = await getComments()
     const comment_list = document.getElementById("comment_list")
     comment_list.innerHTML = ''
-
+    
     for(let i = 0; i < comments.length; i++){
         const newComment = document.createElement("div")
         newComment.setAttribute("id", `comment_content_${comments[i].id}`)
@@ -58,7 +63,7 @@ async function loadPostDetail(post_id){
         // 댓글 작성 날짜
         const newCommentTime = document.createElement("small")
         newCommentTime.innerText = comments[i].update_at
-        newCommentTime.setAttribute("id", `comment_time_${comments}`)
+        newCommentTime.setAttribute("id", `comment_time_${comments[i].id}`)
 
         // 댓글 수정 버튼    
         const commentUpdateButton = document.createElement("button")
@@ -90,8 +95,6 @@ async function updatePostMode(){
     const postUser = document.getElementById("post_user")
     var payload = localStorage.getItem("payload")
     var parsed_payload = await JSON.parse(payload)
-    console.log(parsed_payload)
-    console.log(postUser.innerText)
 
     if(parsed_payload == null || parsed_payload.username != postUser.innerText){
         alert('수정 권한이 없습니다')
@@ -107,10 +110,16 @@ async function updatePostMode(){
 
         const newPostContent = document.getElementById("new_post_content")
         newPostContent.insertBefore(inputPostContent, postContent)
-        
+
         const updatePostButton = document.getElementById("update_post")
         updatePostButton.setAttribute("onclick", "updatePost()")
-        updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료 `
+        updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 완료`
+        
+        const updatePostCancelButton = document.createElement("p")
+        updatePostCancelButton.setAttribute("id", `update_post_cancel_button`)
+        updatePostCancelButton.setAttribute("onclick", "updatePostCancelButton()")
+        updatePostCancelButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 취소`
+        newPostContent.insertBefore(updatePostCancelButton, updatePostButton)
     }
 }
 
@@ -125,7 +134,30 @@ async function updatePost(){
     postContent.style.visibility = "visible"
 
     const updatePostButton = document.getElementById("update_post")
-    updatePostButton.setAttribute("onclick", "updateMode()")
+    updatePostButton.setAttribute("onclick", "updatePostMode()")
+    updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정`
+    
+    const updatePostCancelButton = document.getElementById("update_post_cancel_button")
+    updatePostCancelButton.innerHTML = ''
+    
+    loadPostDetail(post_id)
+}
+
+// 게시글 수정 취소
+function updatePostCancelButton(){
+    var inputPostContent = document.getElementById("input_post_content")
+    inputPostContent.remove()
+    
+    const postContent = document.getElementById("post_content")
+    postContent.style.visibility = "visible"
+
+    const updatePostButton = document.getElementById("update_post")
+    updatePostButton.setAttribute("onclick", "updatePostMode()")
+    updatePostButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정`
+
+    const updatePostCancelButton = document.getElementById("update_post_cancel_button")
+    updatePostCancelButton.innerHTML = ''
+
     loadPostDetail(post_id)
 }
 
@@ -176,7 +208,6 @@ async function updateComment(comment_id){
 
     const updateCommentButton = document.getElementById(`${comment_id}`)
     updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
-
 
     loadPostDetail(post_id)
 }
