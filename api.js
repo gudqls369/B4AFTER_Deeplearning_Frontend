@@ -146,9 +146,6 @@ async function getImages() {
 // 게시글 POST
 async function postPost(content) {
     const image_id = await getImages();
-    console.log(image_id.id)
-async function postPost(content) {
-    const image_id = await getImages();
     const response = await fetch(`${backend_base_url}/post/`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
@@ -299,4 +296,4 @@ async function postComment(post_id, content){
     }else{
         alert('로그인 해주세요')
     }
-}}
+}
