@@ -46,7 +46,7 @@ async function loadPostDetail(post_id){
     const comment_list = document.getElementById("comment_list")
     comment_list.innerHTML = ''
     
-    for(let i = 0; i < comments.length; i++){
+    for(let i = 0; i < comments.length; i++){        
         const newComment = document.createElement("div")
         newComment.setAttribute("id", `comment_content_${comments[i].id}`)
 
@@ -65,26 +65,37 @@ async function loadPostDetail(post_id){
         newCommentTime.innerText = comments[i].update_at
         newCommentTime.setAttribute("id", `comment_time_${comments[i].id}`)
 
+        // 댓글 버튼들
+        const commentButtons = document.createElement("div")
+        commentButtons.setAttribute("id", `comment_buttons_${comments[i].id}`)
+        commentButtons.style.display = "flex"
+
+        // 댓글 업데이트 버튼들
+        const updateCommentButtons = document.createElement("div")
+        updateCommentButtons.setAttribute("id", `update_comment_buttons_${comments[i].id}`)
+        updateCommentButtons.style.display = "flex"
+
         // 댓글 수정 버튼    
-        const commentUpdateButton = document.createElement("button")
-        commentUpdateButton.innerText = '\u00a0수정\u00a0'
-        commentUpdateButton.setAttribute("type", "button")
-        commentUpdateButton.setAttribute("style", "margin:10px")
-        commentUpdateButton.setAttribute("id", `${comments[i].id}`)
-        commentUpdateButton.setAttribute("onclick", "updateCommentMode(this.id)")
+        const updateCommentButton = document.createElement("button")
+        updateCommentButton.innerText = '\u00a0수정\u00a0'
+        updateCommentButton.setAttribute("type", "button")
+        updateCommentButton.setAttribute("style", "margin:10px")
+        updateCommentButton.setAttribute("id", `${comments[i].id}`)
+        updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
 
         //댓글 삭제 버튼
-        const commentDeleteButton = document.createElement("button")
-        commentDeleteButton.innerText = '\u00a0삭제\u00a0'
-        commentDeleteButton.setAttribute("type", "button")
-        commentDeleteButton.setAttribute("id", `${comments[i].id}`)
-        commentDeleteButton.setAttribute("onclick", "deleteCommenteMode(this.id)")
+        const deleteCommentButton = document.createElement("button")
+        deleteCommentButton.innerText = '\u00a0삭제\u00a0'
+        deleteCommentButton.setAttribute("type", "button")
+        deleteCommentButton.setAttribute("id", `${comments[i].id}`)
+        deleteCommentButton.setAttribute("onclick", "deleteCommenteMode(this.id)")
        
+        updateCommentButtons.appendChild(updateCommentButton)
+        commentButtons.appendChild(updateCommentButtons)
+        commentButtons.appendChild(deleteCommentButton)
         newComment.appendChild(newCommentUser)
         newComment.appendChild(newCommentContent)
-        newComment.appendChild(newCommentTime)
-        newComment.appendChild(commentUpdateButton)
-        newComment.appendChild(commentDeleteButton)
+        newComment.appendChild(commentButtons)
         comment_list.appendChild(newComment)
     }
 }
@@ -106,7 +117,7 @@ async function updatePostMode(){
         inputPostContent.setAttribute("id", "input_post_content")
         inputPostContent.innerText = postContent.innerHTML
         inputPostContent.rows = 1
-        inputPostContent.cols = 100
+        inputPostContent.cols = 50
 
         const newPostContent = document.getElementById("new_post_content")
         newPostContent.insertBefore(inputPostContent, postContent)
@@ -119,7 +130,9 @@ async function updatePostMode(){
         updatePostCancelButton.setAttribute("id", `update_post_cancel_button`)
         updatePostCancelButton.setAttribute("onclick", "updatePostCancelButton()")
         updatePostCancelButton.innerHTML = `<span class="material-symbols-outlined">edit</span>수정 취소`
-        newPostContent.insertBefore(updatePostCancelButton, updatePostButton)
+        
+        const updatePostButtons = document.getElementById("update_post_buttons")
+        updatePostButtons.appendChild(updatePostCancelButton)
     }
 }
 
@@ -183,16 +196,23 @@ async function updateCommentMode(comment_id){
         const inputCommentContent = document.createElement("textarea")
         inputCommentContent.setAttribute("id", `input_comment_content_${comment_id}`)
         inputCommentContent.innerText = newCommentContent.innerHTML
-        inputCommentContent.rows = 3
+        inputCommentContent.rows = 1
         inputCommentContent.cols = 20
 
-        const commentTime = document.getElementById(`comment_time_${comment_id}`)
         const updateCommentContent = document.getElementById(`comment_content_${comment_id}`)
-        updateCommentContent.insertBefore(inputCommentContent, commentTime)
+        updateCommentContent.insertBefore(inputCommentContent, newCommentContent)
 
         const updateCommentButton = document.getElementById(`${comment_id}`)
         updateCommentButton.setAttribute("onclick", "updateComment(this.id)")
         updateCommentButton.innerText = '\u00a0수정 완료\u00a0'
+
+        const updateCommentCancelButton = document.createElement("button")
+        updateCommentCancelButton.setAttribute("id", `${comment_id}`)
+        updateCommentCancelButton.setAttribute("onclick", "updateCommentCancelButton(this.id)")
+        updateCommentCancelButton.innerText = '수정 취소'
+
+        const updateCommentButtons = document.getElementById(`update_comment_buttons_${comment_id}`)
+        updateCommentButtons.appendChild(updateCommentCancelButton)
     }
 }
 
@@ -208,6 +228,27 @@ async function updateComment(comment_id){
 
     const updateCommentButton = document.getElementById(`${comment_id}`)
     updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
+
+    const updateCommentCancelButton = document.getElementById(`update_comment_cancel_button_${comment_id}`)
+    updateCommentCancelButton.innerHTML = ''
+
+    loadPostDetail(post_id)
+}
+
+// 댓글 수정 취소
+function updateCommentCancelButton(comment_id){
+    var inputCommentContent = document.getElementById(`input_comment_content_${comment_id}`)
+    inputCommentContent.remove()
+    
+    const commentContent = document.getElementById(`comment_content_${comment_id}`)
+    commentContent.style.visibility = "visible"
+
+    const updateCommentButton = document.getElementById(`${comment_id}`)
+    updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
+    updateCommentButton.innerText = '수정'
+
+    const updateCommentCancelButton = document.getElementById(`update_comment_cancel_button_${comment_id}`)
+    updateCommentCancelButton.innerHTML = ''
 
     loadPostDetail(post_id)
 }
