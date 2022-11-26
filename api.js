@@ -149,7 +149,7 @@ async function postPost(content) {
     const response = await fetch(`${backend_base_url}/post/`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
-            'content-type': 'application/json'
+            'content-type': 'application/json',
         },
         method: 'POST',
         body: JSON.stringify({

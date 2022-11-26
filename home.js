@@ -52,11 +52,26 @@ function showFile() {
     }
 }
 
+// 화풍 설정
+async function selectImageStyle(imagemodel_id){ 
+
+    console.log(imagemodel_id)
+    const response = await fetch(`http://127.0.0.1:8000/post/choosemodel/${imagemodel_id}`, {
+        method:'GET',
+    })
+
+    response_json = await response.json()
+    console.log(response_json)
+    return response_json
+}
+
 // 이미지 DB 업로드
 async function uploadImage() {
     console.log(file)
+    console.log(response_json)
     const imageData = new FormData()
     imageData.append("before_image", file)
+    imageData.append("model", response_json.model)
     for (var pair of imageData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
     }
