@@ -30,14 +30,13 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" >
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <!-- <a href="/"> -->
-            <h1 style="font-family:'Jua', sans-serif; color: #F0EDCC;">몽마르트</h1>
+            <h1 style="color: #F0EDCC;">몽마르트</h1>
             </a>
 
-            <div class="userbutton col-md-3 text-end" style="font-family:'Jua', sans-serif;">
+            <div class="userbutton col-md-3 text-end">
                 <button type="button" id="loginout" onclick="logout()" style="margin-right: 10px;">로그인</button>
                 <button type="button" onclick="location.href='/signup.html'">회원가입</button>
             </div>
@@ -55,11 +54,11 @@
             </div>
             <div id="new_post_content">
                 <p id="post_content" class="content"></p>
-                <p id="update_post" class="material-symbols-outlined" onclick="updatePostMode()"><span>edit</span>수정</p>
-                <p id="delete_post" class="material-symbols-outlined" onclick="deletePostMode()"><span>delete</span>삭제</p>
+                <p id="update_post" onclick="updatePostMode()" style="margin-right:20px; width:100px;"><span class="material-symbols-outlined">edit</span>수정</p>
+                <p id="delete_post" onclick="deletePostMode()" style="margin-right: 20px; width:100px;"><span class="material-symbols-outlined">delete</span>삭제</p>
             </div>
         </div>
-        <div class="row g-3" style="font-family:'Jua', sans-serif; margin:auto; display:flex; flex-direction: row;">
+        <div class="row g-3" style="margin:auto; display:flex; flex-direction: row;">
             <div class="col-auto">
                 <input type="text" class="form-control" id="user_comment" placeholder="댓글을 입력해주세요">
             </div>
@@ -68,8 +67,14 @@
                     style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;">입력</button>
             </div>
 
+            <!-- 좋아요 test1 -->
             <div id="like-button" class="fa fa-2x fa-heart-o not-liked"></div>
-            <!-- <i class="fa-regular fa-heart"></i> -->
+            <span id="like-count">2</span>
+
+            <!-- 좋아요 test2 -->
+            <div class="btns">
+            <Button onclick="toggle1()" id="btnh1" class="btn"><i class="fas fa-heart"></i></button>
+            </div>
 
             <div id="comment_list" class="comments">
             </div>
@@ -77,5 +82,4 @@
     <script src="api.js"></script>
     <script src="post_view.js"></script>
 </body>
-
 </html>

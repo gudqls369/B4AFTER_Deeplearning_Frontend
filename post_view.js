@@ -2,6 +2,9 @@
 const urlParams = new URLSearchParams(window.location.search)
 const post_id = urlParams.get('id')
 
+// 좋아요 변수
+let liked = false
+
 // 로그인 확인
 async function checkLogin() {
     const name = await getName();
@@ -81,6 +84,8 @@ async function loadPostDetail(post_id) {
         newComment.appendChild(commentDeleteButton)
         comment_list.appendChild(newComment)
     }
+    // 좋아요 갯수 함수 로드
+    // updateLike()
 }
 
 //게시글 수정 화면
@@ -195,32 +200,96 @@ async function addcomment() {
 }
 
 // 좋아요
-let liked = false
 
-var like_button = document.getElementById("like-button");
-if (like_button) {
-    like_button.addEventListener("click", doLikeButton);
-}
 
-function doLikeButton(e) {
-    toggleButton(e.target);
-}
+// var like_button = document.getElementById("like-button");
+// if (like_button) {
+//     like_button.addEventListener("click", doLikeButton);
+// }
 
-async function toggleButton(button) {
-    button.classList.remove("liked-shaked");
-    button.classList.toggle("liked");
-    button.classList.toggle("not-liked");
-    button.classList.toggle("fa-heart-o");
-    button.classList.toggle("fa-heart");
+// function doLikeButton(e) {
+//     toggleButton(e.target);
+// }
+
+// async function toggleButton(button) {
+//     button.classList.remove("liked-shaked");
+//     button.classList.toggle("liked");
+//     button.classList.toggle("not-liked");
+//     button.classList.toggle("fa-heart-o");
+//     button.classList.toggle("fa-heart");
+
+//     if(!liked){
+//         const response = await postLike(post_id)
+//         liked = true
+//     }else{
+//         const response = await postLike(post_id)
+//         liked = false
+
+//     // const getlike = await getLike()
+//     // const like_count = document.getElementById("like-count")
+//     // like_count.setAttribute("span", `${backend_base_url}${getlike.likes}`)
+    
+//     }
+// }
+
+
+
+
+var btnvar1 = document.getElementById('btnh1');
+
+async function toggle1(){
+    if (btnvar1.style.color == "red") {
+        btnvar1.style.color = "grey"
+    }else{
+        btnvar1.style.color = "red"
+    }
 
     if(!liked){
-        let response = await postLike(post_id)
+        const response = await postLike(post_id)
+        console.log(response)
         liked = true
     }else{
-        let response = await postLike(post_id)
+        const response = await postLike(post_id)
         liked = false
     }
 }
+
+// async function toggle1(){
+//     btnvar1.classList.toggle("fa-duotone");
+// }
+
+
+// async function updateLike() {
+//     const response = await getLike(post_id)
+//     console.log(response)
+//     liked = response.likes
+//     console.log(liked)
+//     if(liked){
+//         btnvar1.classList.toggle("fa-heart");
+//     }
+// }
+
+
+
+
+
+// async function updateLike() {
+//     const response = await getLike(post_id)
+//     console.log(response)
+//     liked = response.likes
+//     console.log(liked)
+//     if(liked){
+//         like_button.classList.remove("liked-shaked");
+//         like_button.classList.toggle("liked");
+//         like_button.classList.toggle("not-liked");
+//         like_button.classList.toggle("fa-heart-o");
+//         like_button.classList.toggle("fa-heart");
+//     }
+// }
+
+
+
+
 
 
 
