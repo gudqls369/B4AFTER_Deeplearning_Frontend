@@ -13,25 +13,25 @@ input.addEventListener("change", function () {
     file = this.files[0];
     dropArea.classList.add("active");
     showFile();
-});
+})
 
 
 dropArea.addEventListener("dragover", (event) => {
     event.preventDefault();
     dropArea.classList.add("active");
     dragText.textContent = "Release to Upload File";
-});
+})
 
 dropArea.addEventListener("dragleave", () => {
     dropArea.classList.remove("active");
     dragText.textContent = "Drag & Drop to Upload File";
-});
+})
 
 dropArea.addEventListener("drop", (event) => {
     event.preventDefault();
     file = event.dataTransfer.files[0];
     showFile();
-});
+})
 
 
 function showFile() {
@@ -66,37 +66,57 @@ async function selectImageStyle(imagemodel_id){
 }
 
 // 이미지 DB 업로드
-async function uploadImage(){
+async function uploadImage() {
     console.log(file)
     console.log(response_json)
     const imageData = new FormData()
     imageData.append("before_image", file)
     imageData.append("model", response_json.model)
     for (var pair of imageData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]);
-        }
+        console.log(pair[0] + ', ' + pair[1]);
+    }
 
     const response = await fetch('http://127.0.0.1:8000/post/upload/', {
-        method:'POST',
+        method: 'POST',
         headers: {
-            'Authorization':'Bearer '+localStorage.getItem("access"),
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
         },
         body: imageData
-        
     })
 
-    if (response.status == 201){
+    if (response.status == 201) {
         return response
     }else{
+        alert('로그인 해주세요')
+    }
+}
+
+// 이미지 파일 변환
+async function transferImage() {
+    const beforeimg = document.getElementById("beforeimage").value
+
+    const response = await fetch('http://127.0.0.1:8000/post/upload/', {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+        method: 'PUT',
+        body: JSON.stringify({
+            "email": email,
+            "password": password
+        })
+    })
+
+    if (response.status == 200) {
+        return response
+    } else {
         alert(response.status)
     }
 }
 
-
-// 로그인 여부 확인
+// 로그인 확인
 async function checkLogin() {
     const name = await getName();
-    console.log(name)
+
     const loginoutButton = document.getElementById("loginout")
     if(name){
         loginoutButton.innerText = "로그아웃"
@@ -104,23 +124,51 @@ async function checkLogin() {
     }else{
         loginoutButton.innerText = "로그인"
         loginoutButton.setAttribute("onclick", "location.href='/login.html'")
+        
+        const update_post = document.getElementById("update_post")
+        const delete_post = document.getElementById("delete_post")
+
+        update_post.style.visibility = "hidden"
+        delete_post.style.visibility = "hidden"   
     }
 }
 
-// 유저 정보 가져오기
-// window.onload = () => {
-//     const payload = localStorage.getItem("payload");
-//     const payload_parse =JSON.parse(payload)
-//     console.log(payload_parse.username)
-// }
+// 포스팅 모달창 띄우기
+const modal = document.getElementById("post_modal");
+const buttonAddFeed = document.getElementById("img_post_btn");
+buttonAddFeed.addEventListener("click", e => {
+    modal.style.top = window.pageYOffset + 'px';
+    modal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+})
+
+
+// 포스팅 모달창 이미지 띄우기
+async function deepImages() {
+    const getimages = await getImages();
+    const deepimg = document.getElementById("deepimage")
+    deepimg.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
+};
+
+// 포스팅 등록
+function postCreate() {
+    const content = document.getElementById("input_content").value
+    postPost(content)
+};
+
+
+// 포스팅 모달창 닫기
+const buttonCloseModal = document.getElementById("close_modal");
+buttonCloseModal.addEventListener("click", e => {
+    modal.style.display = "none";
+    document.body.style.overflowY = "visible";
+});
+
 
 // 게시글 보기
-async function loadPosts(){
+async function loadPosts() {
     const posts = await getPosts()
     const post_list = document.getElementById("post_list")
-    
-
-    console.log(posts)
 
     posts.forEach(post => {
         const newPost = document.createElement("div")
@@ -132,7 +180,7 @@ async function loadPosts(){
         newCard.classList.add("card")
         newCard.classList.add("border-light")
         newCard.classList.add("bg-secondary")
-        newCard.setAttribute("style", "max-width:18rem;")
+        newCard.setAttribute("style", "max-width:30rem;")
 
         const postImage = document.createElement("img")
         postImage.classList.add("card-img-top")
@@ -158,7 +206,7 @@ async function loadPosts(){
     })
 }
 
-async function createPost(){
+async function createPost() {
     window.location.href = `${frontend_base_url}/create_post.html`
 }
 

@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family:'Jua', sans-serif
     /* font-family: 'Cinzel', serif; */
 }
 
@@ -23,12 +24,14 @@ body {
 }
 
 .postview-box {
-    width: 1000px;
+    width: 80%;
     height: auto;
-    position: absolute;
     top: 53%;
     left: 50%;
+    padding: 20px; 
     border-radius: 20px;
+    border-style:solid;
+    position: absolute;
     background-color: #F0EDCC;
     transform: translate(-50%, -50%);
     display: flex;
@@ -41,20 +44,20 @@ body {
 .image {
     width: 100%;
     height: auto;
-    background-color: red;
+    /* background-color: red; */
     /* border-radius: 20px; */
 }
 
 .image-footer {
     width: 100%;
     height: auto;
-    background-color: pink;
+    /* background-color: pink; */
 }
 
 .content {
     width: 100%;
     height: auto;
-    background-color: orange;
+    /* background-color: orange; */
     /* border-radius: 20px; */
 }
 
@@ -62,6 +65,11 @@ body {
     flex: 0.8;
     width: 100%;
     height: auto;
-    background-color: yellow;
+    /* background-color: yellow; */
     /* border-radius: 20px; */
+}
+
+/* 좋아요 */
+.addlike_css {
+    background-color: red;
 }

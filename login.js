@@ -6,3 +6,4 @@ function func_agree() {
         pw.type = "password";
     }
 }
+
