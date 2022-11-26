@@ -14,7 +14,7 @@ async function handleSignup() {
     if( p1 != p2 ) {
         alert("비밀번호불일치");
         return false;
-    } else{
+    }else{
         const username = document.getElementById("username").value
         const password = document.getElementById("password").value
 
