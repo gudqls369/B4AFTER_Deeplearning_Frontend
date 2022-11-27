@@ -227,9 +227,7 @@ async function updateComment(comment_id){
 
     const updateCommentButton = document.getElementById(`${comment_id}`)
     updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
-
-    const updateCommentCancelButton = document.getElementById(`update_comment_cancel_button_${comment_id}`)
-    updateCommentCancelButton.innerHTML = ''
+    updateCommentButton.innerText = '수정'
 
     loadPostDetail(post_id)
 }
@@ -245,9 +243,6 @@ function updateCommentCancelButton(comment_id){
     const updateCommentButton = document.getElementById(`${comment_id}`)
     updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
     updateCommentButton.innerText = '수정'
-
-    const updateCommentCancelButton = document.getElementById(`update_comment_cancel_button_${comment_id}`)
-    updateCommentCancelButton.innerHTML = ''
 
     loadPostDetail(post_id)
 }
