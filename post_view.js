@@ -79,7 +79,6 @@ async function loadPostDetail(post_id){
         const updateCommentButton = document.createElement("button")
         updateCommentButton.innerText = '\u00a0수정\u00a0'
         updateCommentButton.setAttribute("type", "button")
-        updateCommentButton.setAttribute("style", "margin:10px")
         updateCommentButton.setAttribute("id", `${comments[i].id}`)
         updateCommentButton.setAttribute("onclick", "updateCommentMode(this.id)")
 
@@ -209,7 +208,7 @@ async function updateCommentMode(comment_id){
         const updateCommentCancelButton = document.createElement("button")
         updateCommentCancelButton.setAttribute("id", `${comment_id}`)
         updateCommentCancelButton.setAttribute("onclick", "updateCommentCancelButton(this.id)")
-        updateCommentCancelButton.innerText = '수정 취소'
+        updateCommentCancelButton.innerText = '\u00a0수정 취소\u00a0'
 
         const updateCommentButtons = document.getElementById(`update_comment_buttons_${comment_id}`)
         updateCommentButtons.appendChild(updateCommentCancelButton)
