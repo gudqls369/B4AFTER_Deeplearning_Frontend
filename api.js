@@ -35,8 +35,7 @@ async function handleSignup() {
         if (response.status == 201) {
             location.replace("login.html")
         }else {
-            alert('이미 존재하는 아이디입니다')
-            console.log(response_json)                
+            alert('이미 존재하는 아이디입니다')          
         }
     } 
 }
@@ -163,7 +162,12 @@ async function postPost(content) {
         alert('글 작성을 완료했습니다')
         window.location.reload(`${frontend_base_url}/home.html`)
     }else{
-        alert('로그인 해주세요')
+        const postContent = document.getElementById('input_content')
+        if(postContent.value == ''){
+            alert('글을 입력해주세요')
+        }else{
+            alert('로그인 해주세요')
+        }
     }
 }
 
