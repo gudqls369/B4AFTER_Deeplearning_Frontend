@@ -34,7 +34,7 @@
     <div class="container">
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <h1 style="color: #F0EDCC;">몽마르트</h1>
+            <h1 style="color: #F0EDCC;" onclick="location.href='/home.html'">몽마르트</h1>
             </a>
 
             <div class="userbutton col-md-3 text-end">
@@ -67,10 +67,10 @@
             </div>
         </div>
         <div id="comment-box" class="comment-box">
-            <div id="create_comment" 
-            style="display: flex; justify-content: space-evenly; align-items: stretch;">
+            <div id="create_comment" class="create_comment">
                 <input type="text" id="user_comment"  class="form-control" style="width: 70%; height: 40px;" placeholder="댓글을 입력해주세요">
-                <button id="btn_comment" class="btn btn-primary mb-3" onclick="addcomment()">입력</button>
+                <button id="btn_comment" class="btn btn-primary mb-3" style="width: 70px;" onclick="addcomment()">입력</button>
+                <span class="material-symbols-outlined close_button" style="margin-left:50px; color:#02343F;" onclick="location.href='/home.html'">close</span>
             </div>
             <div id="comment_list" class="comments">
             </div>
