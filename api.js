@@ -5,14 +5,14 @@ const frontend_base_url = 'http://127.0.0.1:5500'
 async function handleSignup() {
     var p1 = document.getElementById('password').value;
     var p2 = document.getElementById('password2').value;
-      
-    if(p1.length < 6) {
-        alert('입력한 글자가 6글자 이상이어야 합니다.');
+    
+    if(p1.length == 0) {
+        alert('비밀번호를 입력해주세요');
         return false;
     }
         
     if( p1 != p2 ) {
-        alert("비밀번호불일치");
+        alert("비밀번호가 일치하지 않습니다");
         return false;
     }else{
         const username = document.getElementById("username").value
@@ -139,7 +139,16 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
-    return response_json_a
+    const payload = localStorage.getItem("payload");
+    const payload_parse = JSON.parse(payload)
+    
+    if(payload_parse.username == response_json_a.user){
+        return response_json_a
+    }else{
+        const result = response_json.filter(function (r) { return r.user == payload_parse.username })
+        const result_image = result[result.length -1]
+        return result_image
+    }
 }
 
 // 게시글 POST
