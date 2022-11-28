@@ -142,12 +142,14 @@ async function getImages() {
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
     
-    if(payload_parse.username == response_json_a.user){
-        return response_json_a
-    }else{
+    if(payload_parse == null){
+        alert('로그인 해주세요')
+    }else if(payload_parse.username != response_json_a.user){
         const result = response_json.filter(function (r) { return r.user == payload_parse.username })
         const result_image = result[result.length -1]
         return result_image
+    }else{
+        return response_json_a
     }
 }
 
