@@ -168,32 +168,39 @@ async function loadPosts() {
     const post_list = document.getElementById("post_list")
 
     posts.forEach(post => {
+        // 게시글
         const newPost = document.createElement("div")
         newPost.classList.add("col")
         newPost.setAttribute("id", post.id)
         newPost.setAttribute("onclick", "postDetail(this.id)")
 
+        // 게시글 이미지 + footer
         const newCard = document.createElement("div")
         newCard.classList.add("card")
         newCard.classList.add("border-light")
         newCard.classList.add("bg-secondary")
         newCard.setAttribute("style", "max-width:30rem;")
 
+        // 게시글 이미지
         const postImage = document.createElement("img")
         postImage.classList.add("card-img-top")
         postImage.setAttribute("src", `${backend_base_url}${post.image.after_image}`)
-
+        
+        // 게시글 footer(작성자 + 작성 날짜)
         const newCardFooter = document.createElement("div")
         newCardFooter.classList.add("card-footer")
 
+        // 게시글 작성자
         const postUser = document.createElement("p")
         postUser.classList.add("text-white")
         postUser.innerText = post.user
 
+        // 게시글 작성 날짜
         const postTime = document.createElement("small")
         postTime.classList.add("text-white-50")
         postTime.innerText = post.update_at
 
+        // 게시글 붙이기
         newCardFooter.append(postUser)
         newCardFooter.append(postTime)
         newCard.append(postImage)
@@ -201,10 +208,6 @@ async function loadPosts() {
         newPost.append(newCard)
         post_list.append(newPost)
     })
-}
-
-async function createPost() {
-    window.location.href = `${frontend_base_url}/create_post.html`
 }
 
 checkLogin();
