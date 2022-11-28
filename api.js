@@ -139,6 +139,7 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
+
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
     
@@ -166,7 +167,7 @@ async function postPost(content) {
         })
     })
     response_json = await response.json()
-    
+   
     if(response.status == 201){
         alert('글 작성을 완료했습니다')
         window.location.reload(`${frontend_base_url}/home.html`)
