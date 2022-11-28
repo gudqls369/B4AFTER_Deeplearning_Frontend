@@ -5,14 +5,14 @@ const frontend_base_url = 'http://127.0.0.1:5500'
 async function handleSignup() {
     var p1 = document.getElementById('password').value;
     var p2 = document.getElementById('password2').value;
-      
-    if(p1.length < 6) {
-        alert('입력한 글자가 6글자 이상이어야 합니다.');
+    
+    if(p1.length == 0) {
+        alert('비밀번호를 입력해주세요');
         return false;
     }
         
     if( p1 != p2 ) {
-        alert("비밀번호불일치");
+        alert("비밀번호가 일치하지 않습니다");
         return false;
     }else{
         const username = document.getElementById("username").value
@@ -35,8 +35,7 @@ async function handleSignup() {
         if (response.status == 201) {
             location.replace("login.html")
         }else {
-            alert('이미 존재하는 아이디입니다')
-            console.log(response_json)                
+            alert('이미 존재하는 아이디입니다')          
         }
     } 
 }
@@ -140,7 +139,17 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
-    return response_json_a
+
+    const payload = localStorage.getItem("payload");
+    const payload_parse = JSON.parse(payload)
+    
+    if(payload_parse.username == response_json_a.user){
+        return response_json_a
+    }else{
+        const result = response_json.filter(function (r) { return r.user == payload_parse.username })
+        const result_image = result[result.length -1]
+        return result_image
+    }
 }
 
 // 게시글 POST
@@ -158,12 +167,17 @@ async function postPost(content) {
         })
     })
     response_json = await response.json()
-    
+   
     if(response.status == 201){
         alert('글 작성을 완료했습니다')
         window.location.reload(`${frontend_base_url}/home.html`)
     }else{
-        alert('로그인 해주세요')
+        const postContent = document.getElementById('input_content')
+        if(postContent.value == ''){
+            alert('글을 입력해주세요')
+        }else{
+            alert('로그인 해주세요')
+        }
     }
 }
 

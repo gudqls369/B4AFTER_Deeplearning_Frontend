@@ -54,27 +54,20 @@ function showFile() {
 
 // 화풍 설정
 async function selectImageStyle(imagemodel_id){ 
-
-    console.log(imagemodel_id)
     const response = await fetch(`http://127.0.0.1:8000/post/choosemodel/${imagemodel_id}`, {
         method:'GET',
     })
 
     response_json = await response.json()
-    console.log(response_json)
     return response_json
 }
 
+
 // 이미지 DB 업로드
 async function uploadImage() {
-    console.log(file)
-    console.log(response_json)
     const imageData = new FormData()
     imageData.append("before_image", file)
     imageData.append("model", response_json.model)
-    for (var pair of imageData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
 
     const response = await fetch('http://127.0.0.1:8000/post/upload/', {
         method: 'POST',
@@ -85,16 +78,26 @@ async function uploadImage() {
     })
 
     if (response.status == 201) {
+        // 홈페이지에서 after_image 띄우기
+        const getimages = await getImages();
+        const after_image = document.getElementById("after_image")
+        console.log(getimages)
+        after_image.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
         return response
     }else{
-        alert('로그인 해주세요')
+        if(file == null){
+            alert('파일을 올려주세요')
+        }else if(response_json.model == null){
+            alert('화풍을 선택해주세요')
+        }else{
+            alert('로그인 해주세요')
+        }
     }
 }
 
 // 이미지 파일 변환
 async function transferImage() {
     const beforeimg = document.getElementById("beforeimage").value
-
     const response = await fetch('http://127.0.0.1:8000/post/upload/', {
         headers: {
             'Authorization': localStorage.getItem("token")
@@ -132,6 +135,7 @@ async function checkLogin() {
         delete_post.style.visibility = "hidden"   
     }
 }
+
 
 // 포스팅 모달창 띄우기
 const modal = document.getElementById("post_modal");
