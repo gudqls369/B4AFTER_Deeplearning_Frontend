@@ -50,7 +50,6 @@
             </div>
             <div class="image-footer">
                 <p id="time"></p>
-                <p><span class="material-icons-outlined" onclick="addLike()">favorite_border</span></p>
             </div>
             <p id="post_user"></p>
             <div class="new_post_content">
@@ -61,7 +60,7 @@
                     <div id="update_post_buttons">
                         <p id="update_post" onclick="updatePostMode()" style="cursor:pointer;"><span class="material-symbols-outlined">edit</span>수정</p>
                     </div>
-                    <p id="delete_post" onclick="deletePostMode()" style="margin-right: 20px; width:100px;"><span class="material-symbols-outlined">delete</span>삭제</p>
+                    
                 </div>
             </div>
         </div>
@@ -72,6 +71,10 @@
                 <button id="btn_comment" class="comment-btn" onclick="addcomment()">입력</button>
             </div>
             <div id="comment_list" class="comments">
+            </div>
+            <div class="delete_back">
+                <button id="delete_post" class="post_register" onclick="deletePostMode()" style="cursor: pointer; font-size: 16px;">삭제</button>
+                <button id="close_modal" class="modal_close" onClick="location.href='home.html'" style="cursor: pointer; font-size: 16px;">돌아가기</button>
             </div>
         </div>
     </div>

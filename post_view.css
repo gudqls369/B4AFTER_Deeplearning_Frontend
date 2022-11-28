@@ -82,10 +82,18 @@ body {
 .post_buttons {
     display: flex;
     align-items: flex-end;
+    background-color: #02343F;
+    color: #F0EDCC;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px 40px #02343F inset, 0 0 0 0 #02343F;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
 }
 
 .comment-box {
-    width: 35%;
+    width: 33%;
     padding-top: 20px;
 }
 
@@ -98,9 +106,9 @@ body {
 .comments {
     background:#02343F;
     color: #F0EDCC;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 10px;
-    height: 600px;
+    height: 635px;
     padding: 10px;
 }
 
@@ -122,7 +130,7 @@ body {
 }
 
 .comments button{
-    width: 50px;
+    width: 90px;
     height: 40px;
     background-color: #F0EDCC;
     color: #02343F;
@@ -138,6 +146,26 @@ body {
     box-shadow: 0 0 10px 0 #F0EDCC inset, 0 0 10px 4px #F0EDCC;
 }
 
-/*
-comment style="margin:auto; display:flex; flex-direction: row;"
-addcomment style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;"
+.delete_back{
+    display: inline-block;
+    float: right;
+}
+
+.delete_back button{
+    width: 80px;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 10px;
+    background-color: #02343F;
+    color: #F0EDCC;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px 40px #02343F inset, 0 0 0 0 #02343F;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+
+.delete_back button:hover {
+    box-shadow: 0 0 10px 0 #02343F inset, 0 0 10px 4px #02343F;
+}
