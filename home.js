@@ -62,6 +62,7 @@ async function selectImageStyle(imagemodel_id){
     return response_json
 }
 
+
 // 이미지 DB 업로드
 async function uploadImage() {
     const imageData = new FormData()
@@ -77,6 +78,11 @@ async function uploadImage() {
     })
 
     if (response.status == 201) {
+        // 홈페이지에서 after_image 띄우기
+        const getimages = await getImages();
+        const after_image = document.getElementById("after_image")
+        console.log(getimages)
+        after_image.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
         return response
     }else{
         if(file == null){
@@ -129,6 +135,7 @@ async function checkLogin() {
         delete_post.style.visibility = "hidden"   
     }
 }
+
 
 // 포스팅 모달창 띄우기
 const modal = document.getElementById("post_modal");

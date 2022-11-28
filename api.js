@@ -139,17 +139,19 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
+
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
-    
+    console.log(payload_parse)
+
     if(payload_parse == null){
         alert('로그인 해주세요')
-    }else if(payload_parse.username != response_json_a.user){
+    }else if(payload_parse.username == response_json_a.user){
+        return response_json_a
+    }else{
         const result = response_json.filter(function (r) { return r.user == payload_parse.username })
         const result_image = result[result.length -1]
         return result_image
-    }else{
-        return response_json_a
     }
 }
 
@@ -168,7 +170,7 @@ async function postPost(content) {
         })
     })
     response_json = await response.json()
-    
+   
     if(response.status == 201){
         alert('글 작성을 완료했습니다')
         window.location.reload(`${frontend_base_url}/home.html`)
