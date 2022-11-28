@@ -14,7 +14,7 @@ async function handleSignup() {
     if( p1 != p2 ) {
         alert("비밀번호불일치");
         return false;
-    } else{
+    }else{
         const username = document.getElementById("username").value
         const password = document.getElementById("password").value
 
@@ -140,6 +140,7 @@ async function getImages() {
     })
     response_json = await response.json()
     response_json_a = response_json[response_json.length - 1];
+    console.log(response_json_a)
     return response_json_a
 }
 
@@ -149,7 +150,7 @@ async function postPost(content) {
     const response = await fetch(`${backend_base_url}/post/`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
-            'content-type': 'application/json'
+            'content-type': 'application/json',
         },
         method: 'POST',
         body: JSON.stringify({
@@ -295,43 +296,5 @@ async function postComment(post_id, content){
         return response_json
     }else{
         alert('로그인 해주세요')
-    }
-}
-
-
-// 좋아요
-async function postLike(post_id){
-    const response = await fetch(`${backend_base_url}/post/${post_id}/like/`, {
-        headers:{
-            'Authorization':'Bearer '+localStorage.getItem("access"),
-        },
-        method:'POST'
-    })
-    response_json = await response.json()
-
-    if (response.status == 201){
-        console.log(response_json)
-        return response_json
-    }else if(response.status == 200){
-        console.log(response_json)
-        return response_json
-    }
-}
-
-
-async function getLike(post_id){
-    const response = await fetch(`${backend_base_url}/post/${post_id}/like/`, {
-        headers:{
-            'Authorization':'Bearer '+localStorage.getItem("access"),
-        },
-        method:'GET',
-    })
-
-    if (response.status == 200){
-        response_json = await response.json()
-        console.log(response_json.likes[length])
-        return response_json
-    }else{
-        alert(response.status)
     }
 }

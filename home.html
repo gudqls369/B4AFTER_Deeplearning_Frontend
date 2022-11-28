@@ -60,15 +60,15 @@
                             <header style="font-size: 28px">원하는 화풍 선택 후 이미지 변환 클릭</header>
                         </div>
                         <div>
-                            <button type="button" class="button button1" id="img_btn"></button>
-                            <button type="button" class="button button2" id="img_btn"></button>
+                            <button type="button" class="button button1" id="img_btn" value="1" onclick="selectImageStyle(this.value)"></button>
+                            <button type="button" class="button button2" id="img_btn" value="2" onclick="selectImageStyle(this.value)"></button>
                         </div>
                         <div>
-                            <button type="button" class="button button3" id="img_btn"></button>
-                            <button type="button" class="button button4" id="img_btn"></button>
+                            <button type="button" class="button button3" id="img_btn" value="3" onclick="selectImageStyle(this.value)"></button>
+                            <button type="button" class="button button4" id="img_btn" value="4" onclick="selectImageStyle(this.value)"></button>
                         </div>
                         <div>
-                            <button type="button" class="button button5" onclick="beforeImage()" id="img_upload_btn">이미지
+                            <button type="button" class="button button5" onclick="uploadImage()" id="img_upload_btn">이미지
                                 변환</button>
                             <button type="button" class="button button6" onclick="deepImages()" id="img_post_btn">화풍 이미지
                                 공유하기</button>
@@ -84,7 +84,7 @@
                                 <div>
                                     <textarea id="input_content"
                                         class="modal_text feed_content_textarea form-control col-sm-5" rows="6"
-                                        placeholder="설명을 입력하세요..."
+                                        placeholder="아무말 대잔치..."
                                         style="background-color: #F0EDCC; font-size: 20px;"></textarea>
                                 </div>
                                 <div class="modal_button">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="child3">
                     <div class="deep-image-box">
-                        <img src="star.jpg" alt="deep-image" class="deep-image" onclick="window.open(this.src)">
+                        <img src="non_image.png" alt="deep-image" class="deep-image" onclick="window.open(this.src)" id="after_image">
                     </div>
                 </div>
             </div>
