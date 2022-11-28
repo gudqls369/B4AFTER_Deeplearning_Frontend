@@ -89,6 +89,12 @@ body {
     padding-top: 20px;
 }
 
+.create_comment {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
 .comments {
     background:#02343F;
     color: #F0EDCC;
@@ -135,4 +141,3 @@ body {
 /*
 comment style="margin:auto; display:flex; flex-direction: row;"
 addcomment style="background-color: #F0EDCC; border-color:#F0EDCC; color:#02343F;"
-
