@@ -142,7 +142,6 @@ async function getImages() {
 
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload)
-    console.log(payload_parse)
 
     if(payload_parse == null){
         alert('로그인 해주세요')

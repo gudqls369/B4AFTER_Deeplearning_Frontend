@@ -81,7 +81,6 @@ async function uploadImage() {
         // 홈페이지에서 after_image 띄우기
         const getimages = await getImages();
         const after_image = document.getElementById("after_image")
-        console.log(getimages)
         after_image.setAttribute("src", `${backend_base_url}${getimages.after_image}`)
         return response
     }else{
